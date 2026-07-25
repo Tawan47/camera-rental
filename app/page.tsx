@@ -1,0 +1,163 @@
+import Link from "next/link";
+import SiteHeader from "@/app/components/site-header";
+import SiteFooter from "@/app/components/site-footer";
+import ProductCard from "@/app/components/product-card";
+import { brands, categories, products } from "@/app/lib/mock-data";
+
+export default function Home() {
+  const featured = products.slice(0, 4);
+
+  return (
+    <div className="flex flex-1 flex-col">
+      <SiteHeader />
+
+      <main className="flex-1">
+        {/* Hero */}
+        <section className="border-b border-zinc-200 bg-gradient-to-b from-orange-50 to-white">
+          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+            <div className="mx-auto max-w-2xl text-center">
+              <span className="inline-flex items-center rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-700">
+                เช่าง่าย ส่งไว ราคาเป็นมิตร
+              </span>
+              <h1 className="mt-4 text-3xl font-bold tracking-tight text-zinc-900 sm:text-5xl">
+                เช่ากล้องถ่ายภาพ
+                <br className="hidden sm:block" /> ครบทุกความต้องการ
+              </h1>
+              <p className="mt-4 text-base text-zinc-600 sm:text-lg">
+                เลือกกล้อง เลนส์ และอุปกรณ์เสริมจากแบรนด์ชั้นนำ จองผ่าน LINE
+                หรือฟอร์มออนไลน์ ได้รับสินค้าไว ไม่ยุ่งยาก
+              </p>
+            </div>
+
+            {/* Search bar */}
+            <form className="mx-auto mt-8 flex max-w-xl flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm sm:flex-row">
+              <div className="flex flex-1 items-center gap-2 px-2">
+                <span className="text-zinc-400">🔍</span>
+                <input
+                  type="text"
+                  placeholder="ค้นหากล้อง, เลนส์, ยี่ห้อ..."
+                  className="w-full border-none py-2 text-sm text-zinc-900 outline-none placeholder:text-zinc-400"
+                />
+              </div>
+              <Link
+                href="/products"
+                className="flex items-center justify-center rounded-xl bg-orange-500 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600"
+              >
+                ค้นหา
+              </Link>
+            </form>
+
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm text-zinc-500">
+              <span>ค้นหายอดนิยม:</span>
+              {["Sony A7 IV", "Canon R6", "GoPro", "DJI Air 3"].map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-zinc-200 bg-white px-3 py-1 text-zinc-600"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Categories */}
+        <section id="categories" className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <div className="mb-6 flex items-end justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-zinc-900 sm:text-2xl">เลือกตามหมวดหมู่</h2>
+              <p className="mt-1 text-sm text-zinc-500">อุปกรณ์ครบทุกประเภทงานถ่ายภาพ</p>
+            </div>
+            <Link href="/products" className="text-sm font-medium text-orange-600 hover:underline">
+              ดูทั้งหมด →
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+            {categories.map((cat) => (
+              <Link
+                key={cat.id}
+                href={`/products?category=${cat.id}`}
+                className="flex flex-col items-center gap-2 rounded-2xl border border-zinc-200 bg-white p-5 text-center transition hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-md"
+              >
+                <span className="text-3xl">{cat.icon}</span>
+                <span className="text-sm font-medium text-zinc-800">{cat.name}</span>
+                <span className="text-xs text-zinc-400">{cat.productCount} รายการ</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Brands */}
+        <section id="brands" className="border-y border-zinc-200 bg-zinc-50">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <div className="mb-6">
+              <h2 className="text-xl font-bold text-zinc-900 sm:text-2xl">เลือกตามยี่ห้อ</h2>
+              <p className="mt-1 text-sm text-zinc-500">แบรนด์กล้องชั้นนำที่คุณไว้วางใจ</p>
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+              {brands.map((brand) => (
+                <Link
+                  key={brand.id}
+                  href={`/products?brand=${brand.id}`}
+                  className="flex flex-col items-center justify-center gap-1 rounded-2xl border border-zinc-200 bg-white p-6 text-center transition hover:-translate-y-0.5 hover:border-orange-300 hover:shadow-md"
+                >
+                  <span className="text-base font-bold tracking-tight text-zinc-800">
+                    {brand.logo}
+                  </span>
+                  <span className="text-xs text-zinc-400">{brand.productCount} รายการ</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Featured products */}
+        <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <div className="mb-6 flex items-end justify-between">
+            <div>
+              <h2 className="text-xl font-bold text-zinc-900 sm:text-2xl">สินค้าแนะนำ</h2>
+              <p className="mt-1 text-sm text-zinc-500">ยอดนิยมประจำเดือนนี้</p>
+            </div>
+            <Link href="/products" className="text-sm font-medium text-orange-600 hover:underline">
+              ดูทั้งหมด →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {featured.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </section>
+
+        {/* How it works */}
+        <section className="border-t border-zinc-200 bg-zinc-50">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+            <h2 className="text-center text-xl font-bold text-zinc-900 sm:text-2xl">
+              ขั้นตอนการเช่า
+            </h2>
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+              {[
+                { step: "1", title: "เลือกสินค้า", desc: "ค้นหาหรือเลือกดูตามหมวดหมู่ / ยี่ห้อ" },
+                { step: "2", title: "กดปุ่ม “จอง”", desc: "ติดต่อผ่าน LINE OA หรือกรอกฟอร์ม" },
+                { step: "3", title: "รับสินค้า", desc: "ทีมงานติดต่อกลับเพื่อยืนยันและจัดส่ง" },
+              ].map((item) => (
+                <div
+                  key={item.step}
+                  className="rounded-2xl border border-zinc-200 bg-white p-6 text-center"
+                >
+                  <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-full bg-orange-500 text-sm font-bold text-white">
+                    {item.step}
+                  </div>
+                  <h3 className="mt-3 font-semibold text-zinc-900">{item.title}</h3>
+                  <p className="mt-1 text-sm text-zinc-500">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  );
+}
