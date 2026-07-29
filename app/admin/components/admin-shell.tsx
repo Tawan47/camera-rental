@@ -3,8 +3,10 @@ import Link from "next/link";
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: "🏠" },
   { href: "/admin/products", label: "จัดการสินค้า", icon: "📷" },
+  { href: "/admin/bundles", label: "เซ็ตเช่า", icon: "🎁" },
   { href: "/admin/categories", label: "หมวดหมู่", icon: "🗂️" },
   { href: "/admin/brands", label: "ยี่ห้อ", icon: "🏷️" },
+  { href: "/admin/settings", label: "ตั้งค่าเว็บไซต์", icon: "⚙️" },
 ];
 
 export default function AdminShell({
@@ -18,10 +20,9 @@ export default function AdminShell({
     <div className="flex min-h-screen bg-zinc-50">
       <aside className="hidden w-60 shrink-0 flex-col border-r border-zinc-200 bg-white md:flex">
         <div className="flex items-center gap-2 border-b border-zinc-200 px-5 py-4">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500 text-lg text-white">
-            📷
-          </span>
-          <span className="font-bold tracking-tight text-zinc-900">CamRent Admin</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/products/logo-plu.jpg" alt="Plu For Rent" className="h-9 w-9 rounded-xl object-cover" />
+          <span className="font-bold tracking-tight text-zinc-900">Plu For Rent Admin</span>
         </div>
         <nav className="flex-1 space-y-1 px-3 py-4">
           {navItems.map((item) => {
@@ -32,7 +33,7 @@ export default function AdminShell({
                 href={item.href}
                 className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition ${
                   isActive
-                    ? "bg-orange-50 text-orange-700"
+                    ? "bg-sky-50 text-sky-700"
                     : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
                 }`}
               >
@@ -61,10 +62,9 @@ export default function AdminShell({
       <div className="flex flex-1 flex-col">
         <header className="flex items-center justify-between border-b border-zinc-200 bg-white px-4 py-3 md:hidden">
           <div className="flex items-center gap-2 font-bold text-zinc-900">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-orange-500 text-white">
-              📷
-            </span>
-            CamRent Admin
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/products/logo-plu.jpg" alt="Plu For Rent" className="h-8 w-8 rounded-lg object-cover" />
+            Plu For Rent Admin
           </div>
           <Link href="/" className="text-sm text-zinc-500">
             กลับหน้าเว็บไซต์

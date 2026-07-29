@@ -1,7 +1,11 @@
 import AdminShell from "@/app/admin/components/admin-shell";
 import ProductForm from "@/app/admin/products/product-form";
+import { getBrands } from "@/app/lib/brands";
+import { getCategories } from "@/app/lib/categories";
 
-export default function NewProductPage() {
+export default async function NewProductPage() {
+  const [brands, categories] = await Promise.all([getBrands(), getCategories()]);
+
   return (
     <AdminShell active="/admin/products">
       <div className="mb-6">
@@ -9,7 +13,7 @@ export default function NewProductPage() {
         <p className="mt-1 text-sm text-zinc-500">กรอกรายละเอียดสินค้าที่ต้องการเพิ่ม</p>
       </div>
       <div className="max-w-3xl">
-        <ProductForm />
+        <ProductForm brands={brands} categories={categories} />
       </div>
     </AdminShell>
   );

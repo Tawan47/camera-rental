@@ -1,7 +1,11 @@
+import Link from "next/link";
 import AdminShell from "@/app/admin/components/admin-shell";
-import { categories } from "@/app/lib/mock-data";
+import { getCategories } from "@/app/lib/categories";
+import { deleteCategory } from "@/app/admin/categories/actions";
 
-export default function AdminCategoriesPage() {
+export default async function AdminCategoriesPage() {
+  const categories = await getCategories();
+
   return (
     <AdminShell active="/admin/categories">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -9,12 +13,12 @@ export default function AdminCategoriesPage() {
           <h1 className="text-xl font-bold text-zinc-900">จัดการหมวดหมู่</h1>
           <p className="mt-1 text-sm text-zinc-500">เพิ่มหรือแก้ไขหมวดหมู่สินค้า</p>
         </div>
-        <button
-          type="button"
-          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600"
+        <Link
+          href="/admin/categories/new"
+          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
         >
           + เพิ่มหมวดหมู่
-        </button>
+        </Link>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -31,12 +35,17 @@ export default function AdminCategoriesPage() {
               <p className="text-xs text-zinc-400">{cat.productCount} รายการ</p>
             </div>
             <div className="flex items-center gap-3 text-sm">
-              <button type="button" className="font-medium text-orange-600 hover:underline">
+              <Link
+                href={`/admin/categories/${cat.id}/edit`}
+                className="font-medium text-sky-600 hover:underline"
+              >
                 แก้ไข
-              </button>
-              <button type="button" className="font-medium text-red-500 hover:underline">
-                ลบ
-              </button>
+              </Link>
+              <form action={deleteCategory.bind(null, cat.id)}>
+                <button type="submit" className="font-medium text-red-500 hover:underline">
+                  ลบ
+                </button>
+              </form>
             </div>
           </div>
         ))}

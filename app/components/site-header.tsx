@@ -1,37 +1,41 @@
 import Link from "next/link";
+import { getSettings } from "@/app/lib/settings";
 
-export default function SiteHeader() {
+export default async function SiteHeader() {
+  const settings = await getSettings();
+
   return (
     <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-zinc-900">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-500 text-lg text-white">
-            📷
-          </span>
-          <span className="text-lg tracking-tight">CamRent</span>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={settings.logoImage} alt={settings.shopName} className="h-9 w-9 rounded-xl object-cover" />
+          <span className="text-lg tracking-tight">{settings.shopName}</span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-zinc-600 md:flex">
-          <Link href="/products" className="transition hover:text-orange-600">
+          <Link href="/products" className="transition hover:text-sky-600">
             สินค้าทั้งหมด
           </Link>
-          <Link href="/#categories" className="transition hover:text-orange-600">
+          <Link href="/#categories" className="transition hover:text-sky-600">
             หมวดหมู่
           </Link>
-          <Link href="/#brands" className="transition hover:text-orange-600">
+          <Link href="/#brands" className="transition hover:text-sky-600">
             ยี่ห้อ
           </Link>
-          <Link href="/contact" className="transition hover:text-orange-600">
+          <Link href="/contact" className="transition hover:text-sky-600">
             ติดต่อเรา
           </Link>
         </nav>
 
         <div className="flex items-center gap-2">
           <a
-            href="#"
-            className="hidden items-center gap-1.5 rounded-full bg-[#06C755] px-4 py-2 text-sm font-semibold text-white transition hover:brightness-95 sm:flex"
+            href={`https://instagram.com/${settings.instagramHandle}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden items-center gap-1.5 rounded-full bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition hover:brightness-95 sm:flex"
           >
-            LINE OA
+            @{settings.instagramHandle}
           </a>
           <Link
             href="/admin/login"

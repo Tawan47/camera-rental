@@ -2,7 +2,7 @@ import AdminShell from "@/app/admin/components/admin-shell";
 import { recentBookings, stats } from "@/app/lib/mock-data";
 
 const statCards = [
-  { label: "สินค้าทั้งหมด", value: stats.totalProducts, icon: "📷", color: "bg-orange-50 text-orange-600" },
+  { label: "สินค้าทั้งหมด", value: stats.totalProducts, icon: "📷", color: "bg-sky-50 text-sky-600" },
   { label: "หมวดหมู่", value: stats.totalCategories, icon: "🗂️", color: "bg-blue-50 text-blue-600" },
   { label: "ยี่ห้อ", value: stats.totalBrands, icon: "🏷️", color: "bg-purple-50 text-purple-600" },
   { label: "การจองเดือนนี้", value: stats.monthlyBookings, icon: "📅", color: "bg-green-50 text-green-600" },

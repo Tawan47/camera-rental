@@ -1,0 +1,30 @@
+-- CreateTable
+CREATE TABLE "site_settings" (
+    "id" TEXT NOT NULL DEFAULT 'singleton',
+    "shopName" TEXT NOT NULL DEFAULT 'Plu For Rent',
+    "logoImage" TEXT NOT NULL DEFAULT '/products/logo-plu.jpg',
+    "instagramHandle" TEXT NOT NULL DEFAULT 'Plu_for_rent',
+    "contactPhone" TEXT NOT NULL DEFAULT '063-416-9115',
+    "contactPerson" TEXT NOT NULL DEFAULT 'คุณจู',
+    "footerTagline" TEXT NOT NULL DEFAULT 'บริการเช่ากล้อง เลนส์ซีนีม่า และอุปกรณ์ถ่ายภาพ/วิดีโอ ครบ จบ ในที่เดียว ส่งไว ราคาเป็นมิตร',
+    "businessHoursLine1" TEXT NOT NULL DEFAULT 'จันทร์ - ศุกร์: 09:00 - 19:00',
+    "businessHoursLine2" TEXT NOT NULL DEFAULT 'เสาร์ - อาทิตย์: 10:00 - 18:00',
+    "metaTitle" TEXT NOT NULL DEFAULT 'Plu For Rent — เช่ากล้องและอุปกรณ์ถ่ายภาพ/วิดีโอ',
+    "metaDescription" TEXT NOT NULL DEFAULT 'บริการเช่ากล้อง เลนส์ซีนีม่า และอุปกรณ์ถ่ายภาพ/วิดีโอ โดย Plu For Rent',
+    "heroEyebrow" TEXT NOT NULL DEFAULT 'เช่าง่าย ส่งไว ราคาเป็นมิตร',
+    "heroTitleLine1" TEXT NOT NULL DEFAULT 'เช่ากล้องถ่ายภาพ',
+    "heroTitleLine2" TEXT NOT NULL DEFAULT 'ครบทุกความต้องการ',
+    "heroSubheading" TEXT NOT NULL DEFAULT 'เลือกกล้อง เลนส์ และอุปกรณ์เสริมจากแบรนด์ชั้นนำ จองผ่าน LINE หรือฟอร์มออนไลน์ ได้รับสินค้าไว ไม่ยุ่งยาก',
+    "heroSearchPlaceholder" TEXT NOT NULL DEFAULT 'ค้นหากล้อง, เลนส์, ยี่ห้อ...',
+    "popularSearchLabel" TEXT NOT NULL DEFAULT 'ค้นหายอดนิยม:',
+    "popularSearchTags" TEXT[] DEFAULT ARRAY['Sony A7 IV', 'Canon R6', 'GoPro', 'DJI Air 3']::TEXT[],
+    "categoriesHeading" TEXT NOT NULL DEFAULT 'เลือกตามหมวดหมู่',
+    "categoriesSubheading" TEXT NOT NULL DEFAULT 'อุปกรณ์ครบทุกประเภทงานถ่ายภาพ',
+    "brandsHeading" TEXT NOT NULL DEFAULT 'เลือกตามยี่ห้อ',
+    "brandsSubheading" TEXT NOT NULL DEFAULT 'แบรนด์กล้องชั้นนำที่คุณไว้วางใจ',
+    "featuredHeading" TEXT NOT NULL DEFAULT 'สินค้าแนะนำ',
+    "featuredSubheading" TEXT NOT NULL DEFAULT 'ยอดนิยมประจำเดือนนี้',
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "site_settings_pkey" PRIMARY KEY ("id")
+);

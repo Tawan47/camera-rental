@@ -1,0 +1,125 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Category {
+  id       String    @id
+  name     String
+  icon     String
+  products Product[]
+  bundles  Bundle[]
+
+  @@map("categories")
+}
+
+model Brand {
+  id       String    @id
+  name     String
+  logo     String
+  products Product[]
+  bundles  Bundle[]
+
+  @@map("brands")
+}
+
+model Product {
+  id          String       @id @default(cuid())
+  name        String
+  brandId     String
+  brand       Brand        @relation(fields: [brandId], references: [id])
+  categoryId  String
+  category    Category     @relation(fields: [categoryId], references: [id])
+  pricePerDay Int
+  deposit     Int
+  image       String
+  rating      Float        @default(0)
+  reviewCount Int          @default(0)
+  available   Boolean      @default(true)
+  published   Boolean      @default(true)
+  description String
+  specs       Json
+  includes    String[]
+  bundleItems BundleItem[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("products")
+}
+
+model Bundle {
+  id          String       @id @default(cuid())
+  name        String
+  brandId     String?
+  brand       Brand?       @relation(fields: [brandId], references: [id])
+  categoryId  String?
+  category    Category?    @relation(fields: [categoryId], references: [id])
+  pricePerDay Int
+  deposit     Int
+  image       String
+  rating      Float        @default(0)
+  reviewCount Int          @default(0)
+  available   Boolean      @default(true)
+  published   Boolean      @default(true)
+  description String
+  items       BundleItem[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("bundles")
+}
+
+model BundleItem {
+  id        String  @id @default(cuid())
+  bundleId  String
+  bundle    Bundle  @relation(fields: [bundleId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int     @default(1)
+  note      String?
+
+  @@unique([bundleId, productId])
+  @@map("bundle_items")
+}
+
+model SiteSettings {
+  id String @id @default("singleton")
+
+  // Group A — Branding & contact
+  shopName           String @default("Plu For Rent")
+  logoImage          String @default("/products/logo-plu.jpg")
+  instagramHandle    String @default("Plu_for_rent")
+  contactPhone       String @default("063-416-9115")
+  contactPerson      String @default("คุณจู")
+  footerTagline      String @default("บริการเช่ากล้อง เลนส์ซีนีม่า และอุปกรณ์ถ่ายภาพ/วิดีโอ ครบ จบ ในที่เดียว ส่งไว ราคาเป็นมิตร")
+  businessHoursLine1 String @default("จันทร์ - ศุกร์: 09:00 - 19:00")
+  businessHoursLine2 String @default("เสาร์ - อาทิตย์: 10:00 - 18:00")
+  metaTitle          String @default("Plu For Rent — เช่ากล้องและอุปกรณ์ถ่ายภาพ/วิดีโอ")
+  metaDescription    String @default("บริการเช่ากล้อง เลนส์ซีนีม่า และอุปกรณ์ถ่ายภาพ/วิดีโอ โดย Plu For Rent")
+
+  // Group B — Homepage hero
+  heroEyebrow           String   @default("เช่าง่าย ส่งไว ราคาเป็นมิตร")
+  heroTitleLine1        String   @default("เช่ากล้องถ่ายภาพ")
+  heroTitleLine2        String   @default("ครบทุกความต้องการ")
+  heroSubheading        String   @default("เลือกกล้อง เลนส์ และอุปกรณ์เสริมจากแบรนด์ชั้นนำ จองผ่าน LINE หรือฟอร์มออนไลน์ ได้รับสินค้าไว ไม่ยุ่งยาก")
+  heroSearchPlaceholder String   @default("ค้นหากล้อง, เลนส์, ยี่ห้อ...")
+  popularSearchLabel    String   @default("ค้นหายอดนิยม:")
+  popularSearchTags     String[] @default(["Sony A7 IV", "Canon R6", "GoPro", "DJI Air 3"])
+
+  // Group C — Section headings
+  categoriesHeading    String @default("เลือกตามหมวดหมู่")
+  categoriesSubheading String @default("อุปกรณ์ครบทุกประเภทงานถ่ายภาพ")
+  brandsHeading        String @default("เลือกตามยี่ห้อ")
+  brandsSubheading     String @default("แบรนด์กล้องชั้นนำที่คุณไว้วางใจ")
+  featuredHeading      String @default("สินค้าแนะนำ")
+  featuredSubheading   String @default("ยอดนิยมประจำเดือนนี้")
+
+  updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
+}

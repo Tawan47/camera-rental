@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { getSettings } from "@/app/lib/settings";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,10 +13,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "CamRent — เช่ากล้องออนไลน์",
-  description: "บริการเช่ากล้องและอุปกรณ์ถ่ายภาพ (ตัวอย่าง UI)",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  return {
+    title: settings.metaTitle,
+    description: settings.metaDescription,
+  };
+}
 
 export default function RootLayout({
   children,

@@ -1,7 +1,9 @@
 import { notFound } from "next/navigation";
 import AdminShell from "@/app/admin/components/admin-shell";
 import ProductForm from "@/app/admin/products/product-form";
-import { getProductById } from "@/app/lib/mock-data";
+import { getProductById } from "@/app/lib/products";
+import { getBrands } from "@/app/lib/brands";
+import { getCategories } from "@/app/lib/categories";
 
 export default async function EditProductPage({
   params,
@@ -9,7 +11,11 @@ export default async function EditProductPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const product = getProductById(id);
+  const [product, brands, categories] = await Promise.all([
+    getProductById(id),
+    getBrands(),
+    getCategories(),
+  ]);
 
   if (!product) {
     notFound();
@@ -22,7 +28,7 @@ export default async function EditProductPage({
         <p className="mt-1 text-sm text-zinc-500">{product.name}</p>
       </div>
       <div className="max-w-3xl">
-        <ProductForm product={product} />
+        <ProductForm product={product} brands={brands} categories={categories} />
       </div>
     </AdminShell>
   );

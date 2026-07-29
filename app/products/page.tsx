@@ -1,7 +1,10 @@
 import SiteHeader from "@/app/components/site-header";
 import SiteFooter from "@/app/components/site-footer";
 import ProductBrowser from "@/app/products/product-browser";
-import { products } from "@/app/lib/mock-data";
+import { getPublishedProducts } from "@/app/lib/products";
+import { getPublishedBundles } from "@/app/lib/bundles";
+import { getCategories } from "@/app/lib/categories";
+import { getBrands } from "@/app/lib/brands";
 
 export default async function ProductsPage({
   searchParams,
@@ -9,6 +12,12 @@ export default async function ProductsPage({
   searchParams: Promise<{ category?: string; brand?: string }>;
 }) {
   const params = await searchParams;
+  const [products, bundles, categories, brands] = await Promise.all([
+    getPublishedProducts(),
+    getPublishedBundles(),
+    getCategories(),
+    getBrands(),
+  ]);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -23,6 +32,9 @@ export default async function ProductsPage({
         <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
           <ProductBrowser
             products={products}
+            bundles={bundles}
+            categories={categories}
+            brands={brands}
             initialCategory={params.category}
             initialBrand={params.brand}
           />

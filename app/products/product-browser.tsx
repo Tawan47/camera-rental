@@ -2,24 +2,32 @@
 
 import { useMemo, useState } from "react";
 import ProductCard from "@/app/components/product-card";
-import { brands, categories, type Product } from "@/app/lib/mock-data";
+import BundleCard from "@/app/components/bundle-card";
+import type { Brand, Bundle, Category, Product } from "@/app/lib/types";
 
 export default function ProductBrowser({
   products,
+  bundles,
+  categories,
+  brands,
   initialCategory,
   initialBrand,
 }: {
   products: Product[];
+  bundles: Bundle[];
+  categories: Category[];
+  brands: Brand[];
   initialCategory?: string;
   initialBrand?: string;
 }) {
+  const [mode, setMode] = useState<"products" | "bundles">("products");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(initialCategory ?? "all");
   const [brand, setBrand] = useState(initialBrand ?? "all");
   const [sort, setSort] = useState("popular");
 
   const filtered = useMemo(() => {
-    let result = products.filter((p) => p.published);
+    let result = products;
 
     if (query.trim()) {
       const q = query.trim().toLowerCase();
@@ -45,6 +53,27 @@ export default function ProductBrowser({
     return result;
   }, [products, query, category, brand, sort]);
 
+  const filteredBundles = useMemo(() => {
+    let result = bundles;
+
+    if (query.trim()) {
+      const q = query.trim().toLowerCase();
+      result = result.filter(
+        (b) => b.name.toLowerCase().includes(q) || (b.brand ?? "").toLowerCase().includes(q)
+      );
+    }
+
+    if (sort === "price-asc") {
+      result = [...result].sort((a, b) => a.pricePerDay - b.pricePerDay);
+    } else if (sort === "price-desc") {
+      result = [...result].sort((a, b) => b.pricePerDay - a.pricePerDay);
+    } else if (sort === "rating") {
+      result = [...result].sort((a, b) => b.rating - a.rating);
+    }
+
+    return result;
+  }, [bundles, query, sort]);
+
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-[240px_1fr]">
       {/* Filters sidebar */}
@@ -56,59 +85,88 @@ export default function ProductBrowser({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ชื่อสินค้า, ยี่ห้อ..."
-            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
           />
         </div>
 
-        <div>
-          <span className="mb-2 block text-sm font-medium text-zinc-700">หมวดหมู่</span>
-          <div className="space-y-1">
-            <FilterOption
-              label="ทั้งหมด"
-              active={category === "all"}
-              onClick={() => setCategory("all")}
-            />
-            {categories.map((c) => (
-              <FilterOption
-                key={c.id}
-                label={`${c.icon} ${c.name}`}
-                active={category === c.id}
-                onClick={() => setCategory(c.id)}
-              />
-            ))}
-          </div>
-        </div>
+        {mode === "products" && (
+          <>
+            <div>
+              <span className="mb-2 block text-sm font-medium text-zinc-700">หมวดหมู่</span>
+              <div className="space-y-1">
+                <FilterOption
+                  label="ทั้งหมด"
+                  active={category === "all"}
+                  onClick={() => setCategory("all")}
+                />
+                {categories.map((c) => (
+                  <FilterOption
+                    key={c.id}
+                    label={`${c.icon} ${c.name}`}
+                    active={category === c.id}
+                    onClick={() => setCategory(c.id)}
+                  />
+                ))}
+              </div>
+            </div>
 
-        <div>
-          <span className="mb-2 block text-sm font-medium text-zinc-700">ยี่ห้อ</span>
-          <div className="space-y-1">
-            <FilterOption
-              label="ทั้งหมด"
-              active={brand === "all"}
-              onClick={() => setBrand("all")}
-            />
-            {brands.map((b) => (
-              <FilterOption
-                key={b.id}
-                label={b.name}
-                active={brand === b.id}
-                onClick={() => setBrand(b.id)}
-              />
-            ))}
-          </div>
-        </div>
+            <div>
+              <span className="mb-2 block text-sm font-medium text-zinc-700">ยี่ห้อ</span>
+              <div className="space-y-1">
+                <FilterOption
+                  label="ทั้งหมด"
+                  active={brand === "all"}
+                  onClick={() => setBrand("all")}
+                />
+                {brands.map((b) => (
+                  <FilterOption
+                    key={b.id}
+                    label={b.name}
+                    active={brand === b.id}
+                    onClick={() => setBrand(b.id)}
+                  />
+                ))}
+              </div>
+            </div>
+          </>
+        )}
       </aside>
 
       {/* Results */}
       <div>
+        <div className="mb-4 flex rounded-xl border border-zinc-200 bg-zinc-50 p-1">
+          <button
+            type="button"
+            onClick={() => setMode("products")}
+            className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition ${
+              mode === "products" ? "bg-white text-sky-700 shadow-sm" : "text-zinc-500 hover:text-zinc-700"
+            }`}
+          >
+            สินค้าเดี่ยว
+          </button>
+          <button
+            type="button"
+            onClick={() => setMode("bundles")}
+            className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition ${
+              mode === "bundles" ? "bg-white text-sky-700 shadow-sm" : "text-zinc-500 hover:text-zinc-700"
+            }`}
+          >
+            เซ็ตเช่า
+          </button>
+        </div>
+
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-sm text-zinc-500">
-            พบ <span className="font-semibold text-zinc-900">{filtered.length}</span> รายการ
+            พบ{" "}
+            <span className="font-semibold text-zinc-900">
+              {mode === "products" ? filtered.length : filteredBundles.length}
+            </span>{" "}
+            รายการ
           </p>
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
+            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
           >
             <option value="popular">เรียงตาม: ยอดนิยม</option>
             <option value="price-asc">ราคา: ต่ำ - สูง</option>
@@ -117,14 +175,26 @@ export default function ProductBrowser({
           </select>
         </div>
 
-        {filtered.length === 0 ? (
+        {mode === "products" ? (
+          filtered.length === 0 ? (
+            <div className="rounded-2xl border border-dashed border-zinc-300 py-20 text-center text-zinc-400">
+              ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองปรับตัวกรองใหม่
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {filtered.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          )
+        ) : filteredBundles.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-zinc-300 py-20 text-center text-zinc-400">
-            ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองปรับตัวกรองใหม่
+            ไม่พบเซ็ตเช่าที่ตรงกับเงื่อนไข ลองปรับการค้นหาใหม่
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} />
+            {filteredBundles.map((bundle) => (
+              <BundleCard key={bundle.id} bundle={bundle} />
             ))}
           </div>
         )}
@@ -148,7 +218,7 @@ function FilterOption({
       onClick={onClick}
       className={`block w-full rounded-lg px-3 py-1.5 text-left text-sm transition ${
         active
-          ? "bg-orange-50 font-medium text-orange-700"
+          ? "bg-sky-50 font-medium text-sky-700"
           : "text-zinc-600 hover:bg-zinc-50"
       }`}
     >

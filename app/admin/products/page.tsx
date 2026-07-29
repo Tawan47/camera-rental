@@ -1,8 +1,12 @@
 import Link from "next/link";
 import AdminShell from "@/app/admin/components/admin-shell";
-import { products } from "@/app/lib/mock-data";
+import { getProducts } from "@/app/lib/products";
+import { deleteProduct, toggleProductPublished } from "@/app/admin/products/actions";
+import { isImagePath } from "@/app/lib/image";
 
-export default function AdminProductsPage() {
+export default async function AdminProductsPage() {
+  const products = await getProducts();
+
   return (
     <AdminShell active="/admin/products">
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -12,7 +16,7 @@ export default function AdminProductsPage() {
         </div>
         <Link
           href="/admin/products/new"
-          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-orange-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-orange-600"
+          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
         >
           + เพิ่มสินค้าใหม่
         </Link>
@@ -36,8 +40,13 @@ export default function AdminProductsPage() {
                 <tr key={product.id} className="border-b border-zinc-50 last:border-0">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
-                      <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-zinc-100 text-lg">
-                        {product.image}
+                      <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-zinc-100 text-lg">
+                        {isImagePath(product.image) ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
+                        ) : (
+                          product.image
+                        )}
                       </span>
                       <div>
                         <p className="font-medium text-zinc-800">{product.name}</p>
@@ -61,19 +70,23 @@ export default function AdminProductsPage() {
                     </span>
                   </td>
                   <td className="px-5 py-3">
-                    <ToggleSwitch checked={product.published} />
+                    <form action={toggleProductPublished.bind(null, product.id, product.published)}>
+                      <ToggleSwitch checked={product.published} />
+                    </form>
                   </td>
                   <td className="px-5 py-3">
                     <div className="flex items-center justify-end gap-3 text-sm">
                       <Link
                         href={`/admin/products/${product.id}/edit`}
-                        className="font-medium text-orange-600 hover:underline"
+                        className="font-medium text-sky-600 hover:underline"
                       >
                         แก้ไข
                       </Link>
-                      <button type="button" className="font-medium text-red-500 hover:underline">
-                        ลบ
-                      </button>
+                      <form action={deleteProduct.bind(null, product.id)}>
+                        <button type="submit" className="font-medium text-red-500 hover:underline">
+                          ลบ
+                        </button>
+                      </form>
                     </div>
                   </td>
                 </tr>
@@ -88,9 +101,11 @@ export default function AdminProductsPage() {
 
 function ToggleSwitch({ checked }: { checked: boolean }) {
   return (
-    <span
+    <button
+      type="submit"
+      aria-label="toggle published"
       className={`inline-flex h-6 w-11 items-center rounded-full px-0.5 transition ${
-        checked ? "bg-orange-500" : "bg-zinc-200"
+        checked ? "bg-sky-500" : "bg-zinc-200"
       }`}
     >
       <span
@@ -98,6 +113,6 @@ function ToggleSwitch({ checked }: { checked: boolean }) {
           checked ? "translate-x-5" : "translate-x-0"
         }`}
       />
-    </span>
+    </button>
   );
 }
