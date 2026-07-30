@@ -20,7 +20,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
               disabled={isEdit}
               defaultValue={category?.id}
               placeholder="เช่น mirrorless"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-zinc-100 disabled:text-zinc-400"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500 disabled:bg-zinc-100 disabled:text-zinc-400"
             />
           </div>
           <div>
@@ -31,7 +31,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
               required
               defaultValue={category?.icon}
               placeholder="📷"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
           <div className="sm:col-span-2">
@@ -42,7 +42,7 @@ export default function CategoryForm({ category }: { category?: Category }) {
               required
               defaultValue={category?.name}
               placeholder="เช่น กล้อง Mirrorless"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
         </div>
@@ -51,13 +51,13 @@ export default function CategoryForm({ category }: { category?: Category }) {
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <Link
           href="/admin/categories"
-          className="rounded-xl border border-zinc-300 px-5 py-2.5 text-center text-sm font-medium text-zinc-600 hover:bg-zinc-50"
+          className="rounded-xl border border-zinc-300 px-5 py-2.5 text-center text-sm font-medium text-zinc-600 transition duration-200 hover:bg-zinc-50"
         >
           ยกเลิก
         </Link>
         <button
           type="submit"
-          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
+          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
         >
           {isEdit ? "บันทึกการแก้ไข" : "เพิ่มหมวดหมู่"}
         </button>

@@ -2,7 +2,7 @@ import { updateSettings } from "@/app/admin/settings/actions";
 import type { SiteSettings } from "@/app/lib/types";
 
 const inputClass =
-  "w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500";
+  "w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500";
 const labelClass = "mb-1.5 block text-sm font-medium text-zinc-700";
 
 export default function SettingsForm({ settings }: { settings: SiteSettings }) {
@@ -218,7 +218,7 @@ export default function SettingsForm({ settings }: { settings: SiteSettings }) {
       <div className="flex justify-end">
         <button
           type="submit"
-          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
+          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
         >
           บันทึกการตั้งค่า
         </button>

@@ -1,4 +1,12 @@
+import Link from "next/link";
 import { getSettings } from "@/app/lib/settings";
+
+const menuLinks = [
+  { href: "/products", label: "สินค้าทั้งหมด" },
+  { href: "/#categories", label: "หมวดหมู่" },
+  { href: "/#brands", label: "ยี่ห้อ" },
+  { href: "/contact", label: "ติดต่อเรา" },
+];
 
 export default async function SiteFooter() {
   const settings = await getSettings();
@@ -17,10 +25,13 @@ export default async function SiteFooter() {
         <div>
           <h4 className="text-sm font-semibold text-zinc-900">เมนู</h4>
           <ul className="mt-3 space-y-2 text-sm text-zinc-500">
-            <li>สินค้าทั้งหมด</li>
-            <li>หมวดหมู่</li>
-            <li>ยี่ห้อ</li>
-            <li>ติดต่อเรา</li>
+            {menuLinks.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="transition duration-200 hover:text-sky-600">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div>

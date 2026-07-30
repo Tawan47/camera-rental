@@ -15,7 +15,7 @@ export default async function AdminBrandsPage() {
         </div>
         <Link
           href="/admin/brands/new"
-          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
+          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
         >
           + เพิ่มยี่ห้อ
         </Link>
@@ -25,7 +25,7 @@ export default async function AdminBrandsPage() {
         {brands.map((brand) => (
           <div
             key={brand.id}
-            className="flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-5"
+            className="flex items-center gap-4 rounded-2xl border border-zinc-200 bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
           >
             <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-zinc-50 text-sm font-bold text-zinc-700">
               {brand.logo.slice(0, 2)}
@@ -37,12 +37,15 @@ export default async function AdminBrandsPage() {
             <div className="flex items-center gap-3 text-sm">
               <Link
                 href={`/admin/brands/${brand.id}/edit`}
-                className="font-medium text-sky-600 hover:underline"
+                className="font-medium text-sky-600 transition duration-200 hover:underline"
               >
                 แก้ไข
               </Link>
               <form action={deleteBrand.bind(null, brand.id)}>
-                <button type="submit" className="font-medium text-red-500 hover:underline">
+                <button
+                  type="submit"
+                  className="font-medium text-red-500 transition duration-200 hover:underline"
+                >
                   ลบ
                 </button>
               </form>

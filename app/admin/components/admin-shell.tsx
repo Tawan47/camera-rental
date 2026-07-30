@@ -31,7 +31,7 @@ export default function AdminShell({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition ${
+                className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium transition duration-200 ${
                   isActive
                     ? "bg-sky-50 text-sky-700"
                     : "text-zinc-600 hover:bg-zinc-50 hover:text-zinc-900"
@@ -46,13 +46,13 @@ export default function AdminShell({
         <div className="border-t border-zinc-200 p-3">
           <Link
             href="/"
-            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
+            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition duration-200 hover:bg-zinc-50 hover:text-zinc-900"
           >
             <span>↩️</span> กลับสู่หน้าเว็บไซต์
           </Link>
           <Link
             href="/admin/login"
-            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900"
+            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition duration-200 hover:bg-zinc-50 hover:text-zinc-900"
           >
             <span>🚪</span> ออกจากระบบ
           </Link>

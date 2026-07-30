@@ -32,9 +32,9 @@ export default async function ContactPage({
         </div>
 
         <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6">
-          <form className="space-y-6 rounded-2xl border border-zinc-200 bg-white p-6 sm:p-8">
+          <form className="space-y-6 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md sm:p-8">
             {preselected && (
-              <div className="flex items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 p-4">
+              <div className="flex animate-fade-in-up items-center gap-3 rounded-xl border border-sky-200 bg-sky-50 p-4">
                 <span className="text-2xl">{preselected.image}</span>
                 <div>
                   <p className="text-sm text-zinc-500">กำลังจองสินค้า</p>
@@ -56,7 +56,7 @@ export default async function ContactPage({
               </label>
               <select
                 defaultValue={preselected?.id ?? ""}
-                className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               >
                 <option value="" disabled>
                   เลือกสินค้า
@@ -90,13 +90,13 @@ export default async function ContactPage({
               <textarea
                 rows={4}
                 placeholder="ระบุความต้องการเพิ่มเติม เช่น สถานที่จัดส่ง อุปกรณ์เสริมที่ต้องการ"
-                className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full rounded-xl bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition hover:bg-sky-600"
+              className="w-full rounded-xl bg-sky-500 px-6 py-3 text-sm font-semibold text-white transition duration-200 hover:scale-[1.01] hover:bg-sky-600 active:scale-[0.99]"
             >
               ส่งข้อมูลการจอง
             </button>
@@ -126,7 +126,7 @@ function Field({
       <input
         type={type}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+        className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
       />
     </div>
   );

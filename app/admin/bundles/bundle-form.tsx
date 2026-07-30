@@ -55,7 +55,7 @@ export default function BundleForm({
               required
               defaultValue={bundle?.name}
               placeholder="เช่น SET M CAMERA SONY FX30"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
 
@@ -64,7 +64,7 @@ export default function BundleForm({
             <select
               name="brandId"
               defaultValue={bundle?.brandId ?? ""}
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             >
               <option value="">ไม่ระบุ</option>
               {brands.map((b) => (
@@ -80,7 +80,7 @@ export default function BundleForm({
             <select
               name="categoryId"
               defaultValue={bundle?.categoryId ?? ""}
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             >
               <option value="">ไม่ระบุ</option>
               {categories.map((c) => (
@@ -100,7 +100,7 @@ export default function BundleForm({
               min={0}
               defaultValue={bundle?.pricePerDay}
               placeholder="2200"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
 
@@ -113,7 +113,7 @@ export default function BundleForm({
               min={0}
               defaultValue={bundle?.deposit ?? 0}
               placeholder="0"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
 
@@ -125,7 +125,7 @@ export default function BundleForm({
               rows={4}
               defaultValue={bundle?.description}
               placeholder="อธิบายจุดเด่นของเซ็ตนี้..."
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function BundleForm({
       <div className="rounded-2xl border border-zinc-200 bg-white p-6">
         <h2 className="font-semibold text-zinc-900">รูปภาพเซ็ต</h2>
         <div className="mt-4 flex items-center gap-4">
-          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border border-dashed border-zinc-300 bg-zinc-50 text-4xl">
+          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border border-dashed border-zinc-300 bg-zinc-50 text-4xl transition duration-200 hover:border-sky-300">
             {bundle?.image ? (
               isImagePath(bundle.image) ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -156,7 +156,7 @@ export default function BundleForm({
               required
               defaultValue={bundle?.image}
               placeholder="🎬"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
         </div>
@@ -168,7 +168,7 @@ export default function BundleForm({
           <button
             type="button"
             onClick={addRow}
-            className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-600 hover:bg-zinc-50"
+            className="rounded-lg border border-zinc-300 px-3 py-1.5 text-sm font-medium text-zinc-600 transition duration-200 hover:bg-zinc-50"
           >
             + เพิ่มสินค้า
           </button>
@@ -177,14 +177,14 @@ export default function BundleForm({
           {items.map((item, index) => (
             <div
               key={index}
-              className="grid grid-cols-1 gap-3 rounded-xl border border-zinc-200 p-3 sm:grid-cols-[1fr_auto_1fr_auto]"
+              className="grid grid-cols-1 gap-3 rounded-xl border border-zinc-200 p-3 transition duration-200 hover:border-sky-200 sm:grid-cols-[1fr_auto_1fr_auto]"
             >
               <select
                 name="itemProductId"
                 required
                 value={item.productId}
                 onChange={(e) => updateRow(index, { productId: e.target.value })}
-                className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
               >
                 {products.map((p) => (
                   <option key={p.id} value={p.id}>
@@ -199,7 +199,7 @@ export default function BundleForm({
                 required
                 value={item.quantity}
                 onChange={(e) => updateRow(index, { quantity: Number(e.target.value) })}
-                className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 sm:w-20"
+                className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500 sm:w-20"
                 placeholder="จำนวน"
               />
               <input
@@ -207,14 +207,14 @@ export default function BundleForm({
                 name="itemNote"
                 value={item.note}
                 onChange={(e) => updateRow(index, { note: e.target.value })}
-                className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+                className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
                 placeholder="หมายเหตุ เช่น เลือก 1 ชิ้น"
               />
               <button
                 type="button"
                 onClick={() => removeRow(index)}
                 disabled={items.length === 1}
-                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm font-medium text-red-500 hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-lg border border-zinc-300 px-3 py-2 text-sm font-medium text-red-500 transition duration-200 hover:bg-zinc-50 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 ลบ
               </button>
@@ -250,13 +250,13 @@ export default function BundleForm({
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <Link
           href="/admin/bundles"
-          className="rounded-xl border border-zinc-300 px-5 py-2.5 text-center text-sm font-medium text-zinc-600 hover:bg-zinc-50"
+          className="rounded-xl border border-zinc-300 px-5 py-2.5 text-center text-sm font-medium text-zinc-600 transition duration-200 hover:bg-zinc-50"
         >
           ยกเลิก
         </Link>
         <button
           type="submit"
-          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
+          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
         >
           {isEdit ? "บันทึกการแก้ไข" : "เพิ่มเซ็ต"}
         </button>

@@ -28,7 +28,7 @@ export default function ProductForm({
               required
               defaultValue={product?.name}
               placeholder="เช่น Sony Alpha A7 IV"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
 
@@ -38,7 +38,7 @@ export default function ProductForm({
               name="brandId"
               required
               defaultValue={product?.brandId}
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             >
               {brands.map((b) => (
                 <option key={b.id} value={b.id}>
@@ -54,7 +54,7 @@ export default function ProductForm({
               name="categoryId"
               required
               defaultValue={product?.category}
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             >
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>
@@ -73,7 +73,7 @@ export default function ProductForm({
               min={0}
               defaultValue={product?.pricePerDay}
               placeholder="890"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
 
@@ -86,7 +86,7 @@ export default function ProductForm({
               min={0}
               defaultValue={product?.deposit}
               placeholder="5000"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
 
@@ -98,7 +98,7 @@ export default function ProductForm({
               rows={4}
               defaultValue={product?.description}
               placeholder="อธิบายจุดเด่นของสินค้า..."
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function ProductForm({
       <div className="rounded-2xl border border-zinc-200 bg-white p-6">
         <h2 className="font-semibold text-zinc-900">รูปภาพสินค้า</h2>
         <div className="mt-4 flex items-center gap-4">
-          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border border-dashed border-zinc-300 bg-zinc-50 text-4xl">
+          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border border-dashed border-zinc-300 bg-zinc-50 text-4xl transition duration-200 hover:border-sky-300">
             {product?.image ? (
               isImagePath(product.image) ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -129,7 +129,7 @@ export default function ProductForm({
               required
               defaultValue={product?.image}
               placeholder="🎞️"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
             />
           </div>
         </div>
@@ -162,13 +162,13 @@ export default function ProductForm({
       <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
         <Link
           href="/admin/products"
-          className="rounded-xl border border-zinc-300 px-5 py-2.5 text-center text-sm font-medium text-zinc-600 hover:bg-zinc-50"
+          className="rounded-xl border border-zinc-300 px-5 py-2.5 text-center text-sm font-medium text-zinc-600 transition duration-200 hover:bg-zinc-50"
         >
           ยกเลิก
         </Link>
         <button
           type="submit"
-          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
+          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
         >
           {isEdit ? "บันทึกการแก้ไข" : "เพิ่มสินค้า"}
         </button>

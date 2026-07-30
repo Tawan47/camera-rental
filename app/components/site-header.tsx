@@ -14,16 +14,28 @@ export default async function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-zinc-600 md:flex">
-          <Link href="/products" className="transition hover:text-sky-600">
+          <Link
+            href="/products"
+            className="relative py-1 transition duration-200 hover:text-sky-600 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-sky-500 after:transition-transform after:duration-200 hover:after:scale-x-100"
+          >
             สินค้าทั้งหมด
           </Link>
-          <Link href="/#categories" className="transition hover:text-sky-600">
+          <Link
+            href="/#categories"
+            className="relative py-1 transition duration-200 hover:text-sky-600 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-sky-500 after:transition-transform after:duration-200 hover:after:scale-x-100"
+          >
             หมวดหมู่
           </Link>
-          <Link href="/#brands" className="transition hover:text-sky-600">
+          <Link
+            href="/#brands"
+            className="relative py-1 transition duration-200 hover:text-sky-600 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-sky-500 after:transition-transform after:duration-200 hover:after:scale-x-100"
+          >
             ยี่ห้อ
           </Link>
-          <Link href="/contact" className="transition hover:text-sky-600">
+          <Link
+            href="/contact"
+            className="relative py-1 transition duration-200 hover:text-sky-600 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-sky-500 after:transition-transform after:duration-200 hover:after:scale-x-100"
+          >
             ติดต่อเรา
           </Link>
         </nav>
@@ -33,13 +45,13 @@ export default async function SiteHeader() {
             href={`https://instagram.com/${settings.instagramHandle}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden items-center gap-1.5 rounded-full bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition hover:brightness-95 sm:flex"
+            className="hidden items-center gap-1.5 rounded-full bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:scale-[1.03] hover:brightness-95 sm:flex"
           >
             @{settings.instagramHandle}
           </a>
           <Link
             href="/admin/login"
-            className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-600 transition hover:border-zinc-400 hover:text-zinc-900"
+            className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-600 transition duration-200 hover:scale-[1.03] hover:border-zinc-400 hover:text-zinc-900"
           >
             Admin
           </Link>

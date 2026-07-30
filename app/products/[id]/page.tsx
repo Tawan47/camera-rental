@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import SiteHeader from "@/app/components/site-header";
 import SiteFooter from "@/app/components/site-footer";
 import ProductCard from "@/app/components/product-card";
+import Reveal from "@/app/components/motion/reveal";
+import { StaggerGrid, StaggerItem } from "@/app/components/motion/stagger-grid";
 import { getProductById, getRelatedProducts } from "@/app/lib/products";
 import { getBundleById } from "@/app/lib/bundles";
 import { isImagePath } from "@/app/lib/image";
@@ -30,16 +32,16 @@ export default async function ProductDetailPage({
       <main className="flex-1">
         <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
           <nav className="mb-6 flex items-center gap-1.5 text-sm text-zinc-500">
-            <Link href="/" className="hover:text-sky-600">หน้าแรก</Link>
+            <Link href="/" className="transition duration-200 hover:text-sky-600">หน้าแรก</Link>
             <span>/</span>
-            <Link href="/products" className="hover:text-sky-600">สินค้าทั้งหมด</Link>
+            <Link href="/products" className="transition duration-200 hover:text-sky-600">สินค้าทั้งหมด</Link>
             <span>/</span>
             <span className="text-zinc-700">{listing.name}</span>
           </nav>
 
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
             {/* Image */}
-            <div className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-zinc-200 bg-white text-[10rem]">
+            <Reveal y={8} className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-zinc-200 bg-white text-[10rem]">
               {isImagePath(listing.image) ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={listing.image} alt={listing.name} className="h-full w-full object-contain p-4" />
@@ -51,10 +53,10 @@ export default async function ProductDetailPage({
                   SET
                 </span>
               )}
-            </div>
+            </Reveal>
 
             {/* Info */}
-            <div>
+            <Reveal delay={0.1}>
               <span className="text-sm font-medium uppercase tracking-wide text-sky-600">
                 {isBundle ? (bundle!.brand ?? "เซ็ตครบชุด") : product!.brand}
               </span>
@@ -75,7 +77,7 @@ export default async function ProductDetailPage({
 
               <p className="mt-4 leading-relaxed text-zinc-600">{listing.description}</p>
 
-              <div className="mt-6 flex items-end gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 p-5">
+              <div className="mt-6 flex items-end gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 p-5 transition duration-200 hover:border-sky-200">
                 <div>
                   <span className="text-3xl font-bold text-zinc-900">
                     ฿{listing.pricePerDay.toLocaleString()}
@@ -94,9 +96,9 @@ export default async function ProductDetailPage({
                   <a
                     href="#"
                     aria-disabled={!listing.available}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition ${
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition duration-200 ${
                       listing.available
-                        ? "bg-[#06C755] hover:brightness-95"
+                        ? "bg-[#06C755] hover:scale-[1.02] hover:brightness-95 active:scale-[0.98]"
                         : "cursor-not-allowed bg-zinc-300"
                     }`}
                   >
@@ -105,9 +107,9 @@ export default async function ProductDetailPage({
                   <Link
                     href={`/contact?product=${listing.id}`}
                     aria-disabled={!listing.available}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold transition ${
+                    className={`flex flex-1 items-center justify-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold transition duration-200 ${
                       listing.available
-                        ? "border-zinc-300 text-zinc-700 hover:border-zinc-400 hover:bg-zinc-50"
+                        ? "border-zinc-300 text-zinc-700 hover:scale-[1.02] hover:border-zinc-400 hover:bg-zinc-50 active:scale-[0.98]"
                         : "pointer-events-none cursor-not-allowed border-zinc-200 text-zinc-300"
                     }`}
                   >
@@ -124,12 +126,12 @@ export default async function ProductDetailPage({
                     {bundle!.items.map((item) => (
                       <li
                         key={item.productId}
-                        className="flex items-center justify-between gap-3 px-4 py-3 text-sm"
+                        className="flex items-center justify-between gap-3 px-4 py-3 text-sm transition duration-200 hover:bg-zinc-50"
                       >
                         <div>
                           <Link
                             href={`/products/${item.productId}`}
-                            className="font-medium text-zinc-800 hover:text-sky-600"
+                            className="font-medium text-zinc-800 transition duration-200 hover:text-sky-600"
                           >
                             {item.productName}
                           </Link>
@@ -151,7 +153,10 @@ export default async function ProductDetailPage({
                     <h2 className="font-semibold text-zinc-900">สเปกสินค้า</h2>
                     <dl className="mt-3 divide-y divide-zinc-100 rounded-xl border border-zinc-200">
                       {product!.specs.map((spec) => (
-                        <div key={spec.label} className="flex justify-between px-4 py-2.5 text-sm">
+                        <div
+                          key={spec.label}
+                          className="flex justify-between px-4 py-2.5 text-sm transition duration-200 hover:bg-zinc-50"
+                        >
                           <dt className="text-zinc-500">{spec.label}</dt>
                           <dd className="font-medium text-zinc-800">{spec.value}</dd>
                         </div>
@@ -174,18 +179,20 @@ export default async function ProductDetailPage({
                   )}
                 </>
               )}
-            </div>
+            </Reveal>
           </div>
 
           {/* Related products */}
           {!isBundle && related.length > 0 && (
             <div className="mt-16">
               <h2 className="text-xl font-bold text-zinc-900">สินค้าใกล้เคียง</h2>
-              <div className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              <StaggerGrid className="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {related.map((p) => (
-                  <ProductCard key={p.id} product={p} />
+                  <StaggerItem key={p.id}>
+                    <ProductCard product={p} />
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerGrid>
             </div>
           )}
         </div>

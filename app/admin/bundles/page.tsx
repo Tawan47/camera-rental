@@ -16,7 +16,7 @@ export default async function AdminBundlesPage() {
         </div>
         <Link
           href="/admin/bundles/new"
-          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-sky-600"
+          className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-sky-500 px-4 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
         >
           + เพิ่มเซ็ตใหม่
         </Link>
@@ -37,7 +37,10 @@ export default async function AdminBundlesPage() {
             </thead>
             <tbody>
               {bundles.map((bundle) => (
-                <tr key={bundle.id} className="border-b border-zinc-50 last:border-0">
+                <tr
+                  key={bundle.id}
+                  className="border-b border-zinc-50 transition duration-200 last:border-0 hover:bg-zinc-50"
+                >
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
                       <span className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg bg-zinc-100 text-lg">
@@ -78,12 +81,15 @@ export default async function AdminBundlesPage() {
                     <div className="flex items-center justify-end gap-3 text-sm">
                       <Link
                         href={`/admin/bundles/${bundle.id}/edit`}
-                        className="font-medium text-sky-600 hover:underline"
+                        className="font-medium text-sky-600 transition duration-200 hover:underline"
                       >
                         แก้ไข
                       </Link>
                       <form action={deleteBundle.bind(null, bundle.id)}>
-                        <button type="submit" className="font-medium text-red-500 hover:underline">
+                        <button
+                          type="submit"
+                          className="font-medium text-red-500 transition duration-200 hover:underline"
+                        >
                           ลบ
                         </button>
                       </form>
@@ -104,12 +110,12 @@ function ToggleSwitch({ checked }: { checked: boolean }) {
     <button
       type="submit"
       aria-label="toggle published"
-      className={`inline-flex h-6 w-11 items-center rounded-full px-0.5 transition ${
+      className={`inline-flex h-6 w-11 items-center rounded-full px-0.5 transition duration-200 ${
         checked ? "bg-sky-500" : "bg-zinc-200"
       }`}
     >
       <span
-        className={`h-5 w-5 rounded-full bg-white shadow transition ${
+        className={`h-5 w-5 rounded-full bg-white shadow transition duration-200 ${
           checked ? "translate-x-5" : "translate-x-0"
         }`}
       />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import ProductCard from "@/app/components/product-card";
 import BundleCard from "@/app/components/bundle-card";
 import type { Brand, Bundle, Category, Product } from "@/app/lib/types";
@@ -85,7 +86,7 @@ export default function ProductBrowser({
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ชื่อสินค้า, ยี่ห้อ..."
-            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
           />
         </div>
 
@@ -138,7 +139,7 @@ export default function ProductBrowser({
           <button
             type="button"
             onClick={() => setMode("products")}
-            className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition ${
+            className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition duration-200 ${
               mode === "products" ? "bg-white text-sky-700 shadow-sm" : "text-zinc-500 hover:text-zinc-700"
             }`}
           >
@@ -147,7 +148,7 @@ export default function ProductBrowser({
           <button
             type="button"
             onClick={() => setMode("bundles")}
-            className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition ${
+            className={`flex-1 rounded-lg px-4 py-2 text-sm font-medium transition duration-200 ${
               mode === "bundles" ? "bg-white text-sky-700 shadow-sm" : "text-zinc-500 hover:text-zinc-700"
             }`}
           >
@@ -166,7 +167,7 @@ export default function ProductBrowser({
           <select
             value={sort}
             onChange={(e) => setSort(e.target.value)}
-            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
+            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
           >
             <option value="popular">เรียงตาม: ยอดนิยม</option>
             <option value="price-asc">ราคา: ต่ำ - สูง</option>
@@ -182,9 +183,20 @@ export default function ProductBrowser({
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-              {filtered.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+              <AnimatePresence mode="popLayout" initial={false}>
+                {filtered.map((product) => (
+                  <motion.div
+                    key={product.id}
+                    layout
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.96 }}
+                    transition={{ duration: 0.25 }}
+                  >
+                    <ProductCard product={product} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
           )
         ) : filteredBundles.length === 0 ? (
@@ -193,9 +205,20 @@ export default function ProductBrowser({
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            {filteredBundles.map((bundle) => (
-              <BundleCard key={bundle.id} bundle={bundle} />
-            ))}
+            <AnimatePresence mode="popLayout" initial={false}>
+              {filteredBundles.map((bundle) => (
+                <motion.div
+                  key={bundle.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.25 }}
+                >
+                  <BundleCard bundle={bundle} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
         )}
       </div>
@@ -216,7 +239,7 @@ function FilterOption({
     <button
       type="button"
       onClick={onClick}
-      className={`block w-full rounded-lg px-3 py-1.5 text-left text-sm transition ${
+      className={`block w-full rounded-lg px-3 py-1.5 text-left text-sm transition duration-200 ${
         active
           ? "bg-sky-50 font-medium text-sky-700"
           : "text-zinc-600 hover:bg-zinc-50"

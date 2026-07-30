@@ -6,12 +6,16 @@ export default function BundleCard({ bundle }: { bundle: Bundle }) {
   return (
     <Link
       href={`/products/${bundle.id}`}
-      className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-zinc-200/60"
+      className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-zinc-200/60"
     >
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-white text-6xl">
         {isImagePath(bundle.image) ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={bundle.image} alt={bundle.name} className="h-full w-full object-contain p-2" />
+          <img
+            src={bundle.image}
+            alt={bundle.name}
+            className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+          />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-100 to-zinc-50">
             {bundle.image}
@@ -30,7 +34,7 @@ export default function BundleCard({ bundle }: { bundle: Bundle }) {
         <span className="text-xs font-medium uppercase tracking-wide text-sky-600">
           {bundle.brand ?? "เซ็ตครบชุด"}
         </span>
-        <h3 className="font-semibold text-zinc-900 group-hover:text-sky-600">
+        <h3 className="font-semibold text-zinc-900 transition-colors duration-200 group-hover:text-sky-600">
           {bundle.name}
         </h3>
         <div className="flex items-center gap-1 text-sm text-zinc-500">

@@ -1,4 +1,5 @@
 import AdminShell from "@/app/admin/components/admin-shell";
+import { StaggerGrid, StaggerItem } from "@/app/components/motion/stagger-grid";
 import { recentBookings, stats } from "@/app/lib/mock-data";
 
 const statCards = [
@@ -23,9 +24,12 @@ export default function AdminDashboardPage() {
         <p className="mt-1 text-sm text-zinc-500">ภาพรวมร้านเช่ากล้องของคุณ</p>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <StaggerGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {statCards.map((card) => (
-          <div key={card.label} className="rounded-2xl border border-zinc-200 bg-white p-5">
+          <StaggerItem
+            key={card.label}
+            className="rounded-2xl border border-zinc-200 bg-white p-5 transition duration-200 hover:-translate-y-0.5 hover:shadow-md"
+          >
             <div className="flex items-center justify-between">
               <span className="text-sm text-zinc-500">{card.label}</span>
               <span className={`flex h-9 w-9 items-center justify-center rounded-xl text-lg ${card.color}`}>
@@ -33,9 +37,9 @@ export default function AdminDashboardPage() {
               </span>
             </div>
             <p className="mt-3 text-2xl font-bold text-zinc-900">{card.value}</p>
-          </div>
+          </StaggerItem>
         ))}
-      </div>
+      </StaggerGrid>
 
       <div className="mt-8 rounded-2xl border border-zinc-200 bg-white">
         <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-4">
@@ -56,7 +60,10 @@ export default function AdminDashboardPage() {
             </thead>
             <tbody>
               {recentBookings.map((booking) => (
-                <tr key={booking.id} className="border-b border-zinc-50 last:border-0">
+                <tr
+                  key={booking.id}
+                  className="border-b border-zinc-50 transition duration-200 last:border-0 hover:bg-zinc-50"
+                >
                   <td className="px-5 py-3 font-medium text-zinc-800">{booking.id}</td>
                   <td className="px-5 py-3 text-zinc-600">{booking.customer}</td>
                   <td className="px-5 py-3 text-zinc-600">{booking.product}</td>
