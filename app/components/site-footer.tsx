@@ -13,7 +13,7 @@ export default async function SiteFooter() {
 
   return (
     <footer className="border-t border-zinc-200 bg-zinc-50">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2 font-bold text-zinc-900">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -37,17 +37,11 @@ export default async function SiteFooter() {
         <div>
           <h4 className="text-sm font-semibold text-zinc-900">ช่องทางติดต่อ</h4>
           <ul className="mt-3 space-y-2 text-sm text-zinc-500">
-            <li>Instagram: @{settings.instagramHandle}</li>
+            <li>Instagram: {settings.instagramHandle}</li>
             <li>
               โทร: {settings.contactPhone} ({settings.contactPerson})
             </li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="text-sm font-semibold text-zinc-900">เวลาทำการ</h4>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-500">
-            <li>{settings.businessHoursLine1}</li>
-            <li>{settings.businessHoursLine2}</li>
+            <li>โทร: 095-332-8716 (คุณทิม)</li>
           </ul>
         </div>
       </div>

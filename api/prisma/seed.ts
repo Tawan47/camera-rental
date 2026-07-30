@@ -419,7 +419,7 @@ const productsData = [
     name: "Amaran 60x-S + Stand + Softbox",
     brandId: "amaran",
     categoryId: "light",
-    pricePerDay: 300,
+    pricePerDay: 350,
     deposit: 0,
     image: "/products/amaran-60xs-set.jpg",
     rating: 4.6,

@@ -4,27 +4,22 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import ProductCard from "@/app/components/product-card";
 import BundleCard from "@/app/components/bundle-card";
-import type { Brand, Bundle, Category, Product } from "@/app/lib/types";
+import type { Bundle, Category, Product } from "@/app/lib/types";
 
 export default function ProductBrowser({
   products,
   bundles,
   categories,
-  brands,
   initialCategory,
-  initialBrand,
 }: {
   products: Product[];
   bundles: Bundle[];
   categories: Category[];
-  brands: Brand[];
   initialCategory?: string;
-  initialBrand?: string;
 }) {
   const [mode, setMode] = useState<"products" | "bundles">("products");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState(initialCategory ?? "all");
-  const [brand, setBrand] = useState(initialBrand ?? "all");
   const [sort, setSort] = useState("popular");
 
   const filtered = useMemo(() => {
@@ -39,9 +34,6 @@ export default function ProductBrowser({
     if (category !== "all") {
       result = result.filter((p) => p.category === category);
     }
-    if (brand !== "all") {
-      result = result.filter((p) => p.brand.toLowerCase() === brand.toLowerCase());
-    }
 
     if (sort === "price-asc") {
       result = [...result].sort((a, b) => a.pricePerDay - b.pricePerDay);
@@ -52,7 +44,7 @@ export default function ProductBrowser({
     }
 
     return result;
-  }, [products, query, category, brand, sort]);
+  }, [products, query, category, sort]);
 
   const filteredBundles = useMemo(() => {
     let result = bundles;
@@ -100,33 +92,16 @@ export default function ProductBrowser({
                   active={category === "all"}
                   onClick={() => setCategory("all")}
                 />
-                {categories.map((c) => (
-                  <FilterOption
-                    key={c.id}
-                    label={`${c.icon} ${c.name}`}
-                    active={category === c.id}
-                    onClick={() => setCategory(c.id)}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <span className="mb-2 block text-sm font-medium text-zinc-700">ยี่ห้อ</span>
-              <div className="space-y-1">
-                <FilterOption
-                  label="ทั้งหมด"
-                  active={brand === "all"}
-                  onClick={() => setBrand("all")}
-                />
-                {brands.map((b) => (
-                  <FilterOption
-                    key={b.id}
-                    label={b.name}
-                    active={brand === b.id}
-                    onClick={() => setBrand(b.id)}
-                  />
-                ))}
+                {categories
+                  .filter((c) => c.id !== "bundle-set")
+                  .map((c) => (
+                    <FilterOption
+                      key={c.id}
+                      label={`${c.icon} ${c.name}`}
+                      active={category === c.id}
+                      onClick={() => setCategory(c.id)}
+                    />
+                  ))}
               </div>
             </div>
           </>

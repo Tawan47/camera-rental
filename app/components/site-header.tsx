@@ -47,7 +47,21 @@ export default async function SiteHeader() {
             rel="noopener noreferrer"
             className="hidden items-center gap-1.5 rounded-full bg-gradient-to-tr from-amber-500 via-pink-500 to-purple-600 px-4 py-2 text-sm font-semibold text-white transition duration-200 hover:scale-[1.03] hover:brightness-95 sm:flex"
           >
-            @{settings.instagramHandle}
+            <svg
+              viewBox="0 0 24 24"
+              className="h-4 w-4 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="5" />
+              <circle cx="12" cy="12" r="4" />
+              <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+            </svg>
+            {settings.instagramHandle}
           </a>
           <Link
             href="/admin/login"

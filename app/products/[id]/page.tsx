@@ -7,6 +7,7 @@ import Reveal from "@/app/components/motion/reveal";
 import { StaggerGrid, StaggerItem } from "@/app/components/motion/stagger-grid";
 import { getProductById, getRelatedProducts } from "@/app/lib/products";
 import { getBundleById } from "@/app/lib/bundles";
+import { getSettings } from "@/app/lib/settings";
 import { isImagePath } from "@/app/lib/image";
 
 export default async function ProductDetailPage({
@@ -25,6 +26,8 @@ export default async function ProductDetailPage({
   const listing = product ?? bundle!;
   const isBundle = !product;
   const related = product ? await getRelatedProducts(product.category, product.id) : [];
+  const settings = await getSettings();
+  const igDmUrl = `https://ig.me/m/${settings.instagramHandle}`;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -91,31 +94,20 @@ export default async function ProductDetailPage({
 
               {/* Booking CTA */}
               <div className="mt-6">
-                <p className="mb-2 text-sm font-medium text-zinc-700">กดปุ่ม “จอง” เพื่อติดต่อร้าน</p>
-                <div className="flex flex-col gap-3 sm:flex-row">
-                  <a
-                    href="#"
-                    aria-disabled={!listing.available}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition duration-200 ${
-                      listing.available
-                        ? "bg-[#06C755] hover:scale-[1.02] hover:brightness-95 active:scale-[0.98]"
-                        : "cursor-not-allowed bg-zinc-300"
-                    }`}
-                  >
-                    จองผ่าน LINE OA
-                  </a>
-                  <Link
-                    href={`/contact?product=${listing.id}`}
-                    aria-disabled={!listing.available}
-                    className={`flex flex-1 items-center justify-center gap-2 rounded-xl border px-6 py-3 text-sm font-semibold transition duration-200 ${
-                      listing.available
-                        ? "border-zinc-300 text-zinc-700 hover:scale-[1.02] hover:border-zinc-400 hover:bg-zinc-50 active:scale-[0.98]"
-                        : "pointer-events-none cursor-not-allowed border-zinc-200 text-zinc-300"
-                    }`}
-                  >
-                    จองผ่านฟอร์มติดต่อ
-                  </Link>
-                </div>
+                <p className="mb-2 text-sm font-medium text-zinc-700">กดปุ่ม “จอง” เพื่อทักแชท Instagram</p>
+                <a
+                  href={igDmUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-disabled={!listing.available}
+                  className={`flex items-center justify-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold text-white transition duration-200 ${
+                    listing.available
+                      ? "bg-sky-500 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
+                      : "pointer-events-none cursor-not-allowed bg-zinc-300"
+                  }`}
+                >
+                  จอง
+                </a>
               </div>
 
               {isBundle ? (

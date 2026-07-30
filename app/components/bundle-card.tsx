@@ -37,12 +37,6 @@ export default function BundleCard({ bundle }: { bundle: Bundle }) {
         <h3 className="font-semibold text-zinc-900 transition-colors duration-200 group-hover:text-sky-600">
           {bundle.name}
         </h3>
-        <div className="flex items-center gap-1 text-sm text-zinc-500">
-          <span className="text-amber-500">★</span>
-          <span>{bundle.rating}</span>
-          <span className="text-zinc-300">·</span>
-          <span>{bundle.reviewCount} รีวิว</span>
-        </div>
         <div className="mt-auto flex items-baseline gap-1 pt-2">
           <span className="text-lg font-bold text-zinc-900">
             ฿{bundle.pricePerDay.toLocaleString()}

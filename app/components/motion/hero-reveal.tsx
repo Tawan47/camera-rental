@@ -27,7 +27,7 @@ export default function HeroReveal({
   title: React.ReactNode;
   subheading: React.ReactNode;
   search: React.ReactNode;
-  tags: React.ReactNode;
+  tags?: React.ReactNode;
 }) {
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="show">
@@ -35,7 +35,7 @@ export default function HeroReveal({
       <motion.div variants={itemVariants}>{title}</motion.div>
       <motion.div variants={itemVariants}>{subheading}</motion.div>
       <motion.div variants={itemVariants}>{search}</motion.div>
-      <motion.div variants={itemVariants}>{tags}</motion.div>
+      {tags && <motion.div variants={itemVariants}>{tags}</motion.div>}
     </motion.div>
   );
 }
