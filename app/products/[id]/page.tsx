@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import SiteHeader from "@/app/components/site-header";
 import SiteFooter from "@/app/components/site-footer";
@@ -25,8 +26,11 @@ export default async function ProductDetailPage({
 
   const listing = product ?? bundle!;
   const isBundle = !product;
-  const related = product ? await getRelatedProducts(product.category, product.id) : [];
-  const settings = await getSettings();
+
+  const [related, settings] = await Promise.all([
+    product ? getRelatedProducts(product.category, product.id) : Promise.resolve([]),
+    getSettings(),
+  ]);
   const igDmUrl = `https://ig.me/m/${settings.instagramHandle}`;
 
   return (
@@ -46,8 +50,14 @@ export default async function ProductDetailPage({
             {/* Image */}
             <Reveal y={8} className="relative flex aspect-square items-center justify-center overflow-hidden rounded-3xl border border-zinc-200 bg-white text-[10rem]">
               {isImagePath(listing.image) ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={listing.image} alt={listing.name} className="h-full w-full object-contain p-4" />
+                <Image
+                  src={listing.image}
+                  alt={listing.name}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="object-contain p-4"
+                />
               ) : (
                 listing.image
               )}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { createProduct, updateProduct } from "@/app/admin/products/actions";
 import type { Brand, Category, Product } from "@/app/lib/types";
-import { isImagePath } from "@/app/lib/image";
+import ProductImageField from "@/app/admin/products/product-image-field";
 
 export default function ProductForm({
   product,
@@ -106,33 +106,7 @@ export default function ProductForm({
 
       <div className="rounded-2xl border border-zinc-200 bg-white p-6">
         <h2 className="font-semibold text-zinc-900">รูปภาพสินค้า</h2>
-        <div className="mt-4 flex items-center gap-4">
-          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-xl border border-dashed border-zinc-300 bg-zinc-50 text-4xl transition duration-200 hover:border-sky-300">
-            {product?.image ? (
-              isImagePath(product.image) ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={product.image} alt={product.name} className="h-full w-full object-cover" />
-              ) : (
-                product.image
-              )
-            ) : (
-              "🖼️"
-            )}
-          </div>
-          <div className="flex-1">
-            <label className="mb-1.5 block text-sm font-medium text-zinc-700">
-              รูป (emoji หรือ URL)
-            </label>
-            <input
-              type="text"
-              name="image"
-              required
-              defaultValue={product?.image}
-              placeholder="🎞️"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            />
-          </div>
-        </div>
+        <ProductImageField defaultValue={product?.image} alt={product?.name ?? "product"} />
       </div>
 
       <div className="rounded-2xl border border-zinc-200 bg-white p-6">

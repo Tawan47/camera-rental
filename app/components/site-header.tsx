@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getSettings } from "@/app/lib/settings";
 
 export default async function SiteHeader() {
@@ -8,8 +9,13 @@ export default async function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
         <Link href="/" className="flex items-center gap-2 font-bold text-zinc-900">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={settings.logoImage} alt={settings.shopName} className="h-9 w-9 rounded-xl object-cover" />
+          <Image
+            src={settings.logoImage}
+            alt={settings.shopName}
+            width={36}
+            height={36}
+            className="h-9 w-9 rounded-xl object-cover"
+          />
           <span className="text-lg tracking-tight">{settings.shopName}</span>
         </Link>
 

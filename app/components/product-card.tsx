@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { Product } from "@/app/lib/types";
 import { isImagePath } from "@/app/lib/image";
 
@@ -10,11 +11,12 @@ export default function ProductCard({ product }: { product: Product }) {
     >
       <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-white text-6xl">
         {isImagePath(product.image) ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={product.image}
             alt={product.name}
-            className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-zinc-100 to-zinc-50">

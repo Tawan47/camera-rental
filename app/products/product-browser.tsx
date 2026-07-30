@@ -97,7 +97,7 @@ export default function ProductBrowser({
                   .map((c) => (
                     <FilterOption
                       key={c.id}
-                      label={`${c.icon} ${c.name}`}
+                      label={c.name}
                       active={category === c.id}
                       onClick={() => setCategory(c.id)}
                     />

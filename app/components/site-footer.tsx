@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getSettings } from "@/app/lib/settings";
 
 const menuLinks = [
@@ -16,8 +17,13 @@ export default async function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
         <div>
           <div className="flex items-center gap-2 font-bold text-zinc-900">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={settings.logoImage} alt={settings.shopName} className="h-8 w-8 rounded-lg object-cover" />
+            <Image
+              src={settings.logoImage}
+              alt={settings.shopName}
+              width={32}
+              height={32}
+              className="h-8 w-8 rounded-lg object-cover"
+            />
             <span className="tracking-tight">{settings.shopName}</span>
           </div>
           <p className="mt-3 text-sm leading-relaxed text-zinc-500">{settings.footerTagline}</p>

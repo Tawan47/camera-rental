@@ -17,7 +17,8 @@ export default async function Home() {
     getPublishedProducts(),
     getSettings(),
   ]);
-  const featured = bundles;
+  const featured = [...bundles].sort((a, b) => b.pricePerDay - a.pricePerDay);
+  const featuredProducts = [...products].sort((a, b) => b.pricePerDay - a.pricePerDay);
 
   return (
     <div className="flex flex-1 flex-col">
@@ -119,7 +120,7 @@ export default async function Home() {
             </Link>
           </Reveal>
           <div className="mx-auto flex max-w-6xl gap-4 overflow-x-auto px-4 pb-2 sm:px-6">
-            {products.map((product) => (
+            {featuredProducts.map((product) => (
               <div key={product.id} className="w-72 shrink-0">
                 <ProductCard product={product} />
               </div>
