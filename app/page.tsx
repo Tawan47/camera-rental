@@ -6,6 +6,7 @@ import Reveal from "@/app/components/motion/reveal";
 import Marquee from "@/app/components/motion/marquee";
 import { StaggerGrid, StaggerItem } from "@/app/components/motion/stagger-grid";
 import HeroReveal from "@/app/components/motion/hero-reveal";
+import HeroSilhouette from "@/app/components/hero-silhouette";
 import { getPublishedBundles } from "@/app/lib/bundles";
 import { getSettings } from "@/app/lib/settings";
 
@@ -22,8 +23,9 @@ export default async function Home() {
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="border-b border-zinc-200 bg-gradient-to-b from-sky-50 to-white">
-          <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
+        <section className="relative overflow-hidden border-b border-zinc-200 bg-gradient-to-b from-sky-50 to-white">
+          <HeroSilhouette />
+          <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24">
             <HeroReveal
               eyebrow={
                 <div className="mx-auto max-w-2xl text-center">
