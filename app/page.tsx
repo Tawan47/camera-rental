@@ -94,9 +94,9 @@ export default async function Home() {
             </Link>
           </Reveal>
           <div className="mx-auto flex max-w-6xl gap-4 overflow-x-auto px-4 pb-2 sm:px-6">
-            {featured.map((bundle) => (
+            {featured.map((bundle, index) => (
               <div key={bundle.id} className="w-72 shrink-0">
-                <BundleCard bundle={bundle} />
+                <BundleCard bundle={bundle} priority={index === 0} />
               </div>
             ))}
           </div>
@@ -120,9 +120,9 @@ export default async function Home() {
             </Link>
           </Reveal>
           <div className="mx-auto flex max-w-6xl gap-4 overflow-x-auto px-4 pb-2 sm:px-6">
-            {featuredProducts.map((product) => (
+            {featuredProducts.map((product, index) => (
               <div key={product.id} className="w-72 shrink-0">
-                <ProductCard product={product} />
+                <ProductCard product={product} priority={index === 0} />
               </div>
             ))}
           </div>

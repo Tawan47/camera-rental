@@ -3,7 +3,13 @@ import Image from "next/image";
 import type { Bundle } from "@/app/lib/types";
 import { isImagePath } from "@/app/lib/image";
 
-export default function BundleCard({ bundle }: { bundle: Bundle }) {
+export default function BundleCard({
+  bundle,
+  priority = false,
+}: {
+  bundle: Bundle;
+  priority?: boolean;
+}) {
   return (
     <Link
       href={`/products/${bundle.id}`}
@@ -15,6 +21,7 @@ export default function BundleCard({ bundle }: { bundle: Bundle }) {
             src={bundle.image}
             alt={bundle.name}
             fill
+            priority={priority}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />

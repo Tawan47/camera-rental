@@ -3,7 +3,13 @@ import Image from "next/image";
 import type { Product } from "@/app/lib/types";
 import { isImagePath } from "@/app/lib/image";
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard({
+  product,
+  priority = false,
+}: {
+  product: Product;
+  priority?: boolean;
+}) {
   return (
     <Link
       href={`/products/${product.id}`}
@@ -15,6 +21,7 @@ export default function ProductCard({ product }: { product: Product }) {
             src={product.image}
             alt={product.name}
             fill
+            priority={priority}
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
