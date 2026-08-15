@@ -46,6 +46,7 @@ model Product {
   specs       Json
   includes    String[]
   bundleItems BundleItem[]
+  inquiries   Inquiry[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 
@@ -68,10 +69,28 @@ model Bundle {
   published   Boolean      @default(true)
   description String
   items       BundleItem[]
+  inquiries   Inquiry[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
 
   @@map("bundles")
+}
+
+model Inquiry {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  lineId      String?
+  productId   String?
+  product     Product? @relation(fields: [productId], references: [id])
+  bundleId    String?
+  bundle      Bundle?  @relation(fields: [bundleId], references: [id])
+  pickupDate  DateTime
+  returnDate  DateTime
+  note        String?
+  createdAt   DateTime @default(now())
+
+  @@map("inquiries")
 }
 
 model BundleItem {

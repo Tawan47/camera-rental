@@ -16,11 +16,33 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/health (GET)', () => {
     return request(app.getHttpServer())
-      .get('/')
+      .get('/health')
       .expect(200)
-      .expect('Hello World!');
+      .expect({ status: 'ok' });
+  });
+
+  it('/products (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/products')
+      .expect(200)
+      .expect((res) => {
+        if (!Array.isArray(res.body)) {
+          throw new Error('expected /products to return an array');
+        }
+      });
+  });
+
+  it('/categories (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/categories')
+      .expect(200)
+      .expect((res) => {
+        if (!Array.isArray(res.body)) {
+          throw new Error('expected /categories to return an array');
+        }
+      });
   });
 
   afterEach(async () => {
