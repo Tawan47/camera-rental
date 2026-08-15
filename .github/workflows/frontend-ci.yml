@@ -1,0 +1,30 @@
+name: Frontend CI
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'api/**'
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'api/**'
+
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+        env:
+          CLOUDINARY_CLOUD_NAME: placeholder
+          CLOUDINARY_API_KEY: placeholder
+          CLOUDINARY_API_SECRET: placeholder
+          API_URL: http://localhost:3001
