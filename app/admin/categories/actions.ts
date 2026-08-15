@@ -16,7 +16,7 @@ export async function createCategory(formData: FormData) {
     name: formData.get("name"),
     icon: formData.get("icon"),
   };
-  await apiFetch("/categories", { method: "POST", body: JSON.stringify(data) });
+  await apiFetch("/categories", { method: "POST", body: JSON.stringify(data), auth: true });
   revalidateCategoryPaths();
   redirect("/admin/categories");
 }
@@ -26,12 +26,12 @@ export async function updateCategory(id: string, formData: FormData) {
     name: formData.get("name"),
     icon: formData.get("icon"),
   };
-  await apiFetch(`/categories/${id}`, { method: "PATCH", body: JSON.stringify(data) });
+  await apiFetch(`/categories/${id}`, { method: "PATCH", body: JSON.stringify(data), auth: true });
   revalidateCategoryPaths();
   redirect("/admin/categories");
 }
 
 export async function deleteCategory(id: string) {
-  await apiFetch(`/categories/${id}`, { method: "DELETE" });
+  await apiFetch(`/categories/${id}`, { method: "DELETE", auth: true });
   revalidateCategoryPaths();
 }

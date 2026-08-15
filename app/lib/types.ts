@@ -55,6 +55,28 @@ export type Bundle = {
   items: BundleItem[];
 };
 
+export type Inquiry = {
+  id: string;
+  name: string;
+  phone: string;
+  lineId: string | null;
+  productId: string | null;
+  bundleId: string | null;
+  pickupDate: string;
+  returnDate: string;
+  note: string | null;
+  createdAt: string;
+  product: { id: string; name: string } | null;
+  bundle: { id: string; name: string } | null;
+};
+
+export type InquiryStats = {
+  total: number;
+  last7Days: number;
+  byType: { product: number; bundle: number };
+  topProducts: { productId: string; name: string; count: number }[];
+};
+
 export type SiteSettings = {
   shopName: string;
   logoImage: string;

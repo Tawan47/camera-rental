@@ -1,5 +1,7 @@
 import Link from "next/link";
 import AdminShell from "@/app/admin/components/admin-shell";
+import DeleteButton from "@/app/admin/components/delete-button";
+import ToggleSwitch from "@/app/admin/components/toggle-switch";
 import { getProducts } from "@/app/lib/products";
 import { deleteProduct, toggleProductPublished } from "@/app/admin/products/actions";
 import { isImagePath } from "@/app/lib/image";
@@ -86,12 +88,7 @@ export default async function AdminProductsPage() {
                         แก้ไข
                       </Link>
                       <form action={deleteProduct.bind(null, product.id)}>
-                        <button
-                          type="submit"
-                          className="font-medium text-red-500 transition duration-200 hover:underline"
-                        >
-                          ลบ
-                        </button>
+                        <DeleteButton confirmMessage={`ต้องการลบ "${product.name}" ใช่หรือไม่?`} />
                       </form>
                     </div>
                   </td>
@@ -102,23 +99,5 @@ export default async function AdminProductsPage() {
         </div>
       </div>
     </AdminShell>
-  );
-}
-
-function ToggleSwitch({ checked }: { checked: boolean }) {
-  return (
-    <button
-      type="submit"
-      aria-label="toggle published"
-      className={`inline-flex h-6 w-11 items-center rounded-full px-0.5 transition duration-200 ${
-        checked ? "bg-sky-500" : "bg-zinc-200"
-      }`}
-    >
-      <span
-        className={`h-5 w-5 rounded-full bg-white shadow transition duration-200 ${
-          checked ? "translate-x-5" : "translate-x-0"
-        }`}
-      />
-    </button>
   );
 }

@@ -30,7 +30,7 @@ export function StaggerGrid({
       variants={containerVariants}
       initial="hidden"
       whileInView="show"
-      viewport={{ once: true, amount: 0.15 }}
+      viewport={{ once: true, amount: 0.1, margin: "0px 0px -100px 0px" }}
     >
       {children}
     </motion.div>

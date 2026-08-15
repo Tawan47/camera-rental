@@ -40,20 +40,20 @@ function revalidateBundlePaths(id?: string) {
 
 export async function createBundle(formData: FormData) {
   const data = bundleFormToJson(formData);
-  await apiFetch("/bundles", { method: "POST", body: JSON.stringify(data) });
+  await apiFetch("/bundles", { method: "POST", body: JSON.stringify(data), auth: true });
   revalidateBundlePaths();
   redirect("/admin/bundles");
 }
 
 export async function updateBundle(id: string, formData: FormData) {
   const data = bundleFormToJson(formData);
-  await apiFetch(`/bundles/${id}`, { method: "PATCH", body: JSON.stringify(data) });
+  await apiFetch(`/bundles/${id}`, { method: "PATCH", body: JSON.stringify(data), auth: true });
   revalidateBundlePaths(id);
   redirect("/admin/bundles");
 }
 
 export async function deleteBundle(id: string) {
-  await apiFetch(`/bundles/${id}`, { method: "DELETE" });
+  await apiFetch(`/bundles/${id}`, { method: "DELETE", auth: true });
   revalidateBundlePaths(id);
 }
 
@@ -61,6 +61,7 @@ export async function toggleBundlePublished(id: string, currentValue: boolean) {
   await apiFetch(`/bundles/${id}/toggle-published`, {
     method: "PATCH",
     body: JSON.stringify({ currentValue }),
+    auth: true,
   });
   revalidateBundlePaths(id);
 }

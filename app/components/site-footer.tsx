@@ -14,7 +14,7 @@ export default async function SiteFooter() {
 
   return (
     <footer className="border-t border-zinc-200 bg-zinc-50">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-3 md:gap-8">
         <div>
           <div className="flex items-center gap-2 font-bold text-zinc-900">
             <Image
@@ -30,7 +30,7 @@ export default async function SiteFooter() {
         </div>
         <div>
           <h4 className="text-sm font-semibold text-zinc-900">เมนู</h4>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-500">
+          <ul className="mt-4 space-y-2.5 text-sm text-zinc-500">
             {menuLinks.map((link) => (
               <li key={link.href}>
                 <Link href={link.href} className="transition duration-200 hover:text-sky-600">
@@ -42,12 +42,23 @@ export default async function SiteFooter() {
         </div>
         <div>
           <h4 className="text-sm font-semibold text-zinc-900">ช่องทางติดต่อ</h4>
-          <ul className="mt-3 space-y-2 text-sm text-zinc-500">
-            <li>Instagram: {settings.instagramHandle}</li>
+          <ul className="mt-4 space-y-2.5 text-sm text-zinc-500">
             <li>
-              โทร: {settings.contactPhone} ({settings.contactPerson})
+              <a
+                href={`https://instagram.com/${settings.instagramHandle}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition duration-200 hover:text-sky-600"
+              >
+                Instagram: {settings.instagramHandle}
+              </a>
             </li>
-            <li>โทร: 095-332-8716 (คุณทิม)</li>
+            <li>
+              <a href={`tel:${settings.contactPhone}`} className="transition duration-200 hover:text-sky-600">
+                โทร: {settings.contactPhone}
+              </a>{" "}
+              ({settings.contactPerson})
+            </li>
           </ul>
         </div>
       </div>

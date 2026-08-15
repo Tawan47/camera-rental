@@ -35,7 +35,7 @@ export async function updateSettings(formData: FormData) {
     featuredSubheading: formData.get("featuredSubheading"),
   };
 
-  await apiFetch("/settings", { method: "PATCH", body: JSON.stringify(data) });
+  await apiFetch("/settings", { method: "PATCH", body: JSON.stringify(data), auth: true });
 
   revalidatePath("/", "layout");
   revalidatePath("/admin/settings");

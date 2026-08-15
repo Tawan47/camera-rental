@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createBundle, updateBundle } from "@/app/admin/bundles/actions";
 import type { Bundle, Brand, Category, Product } from "@/app/lib/types";
 import { isImagePath } from "@/app/lib/image";
+import SubmitButton from "@/app/admin/components/submit-button";
 
 type ItemRow = { productId: string; quantity: number; note: string };
 
@@ -254,12 +255,7 @@ export default function BundleForm({
         >
           ยกเลิก
         </Link>
-        <button
-          type="submit"
-          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
-        >
-          {isEdit ? "บันทึกการแก้ไข" : "เพิ่มเซ็ต"}
-        </button>
+        <SubmitButton>{isEdit ? "บันทึกการแก้ไข" : "เพิ่มเซ็ต"}</SubmitButton>
       </div>
     </form>
   );

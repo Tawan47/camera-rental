@@ -90,14 +90,14 @@ export default async function ProductDetailPage({
 
               <p className="mt-4 leading-relaxed text-zinc-600">{listing.description}</p>
 
-              <div className="mt-6 flex items-end gap-2 rounded-2xl border border-zinc-200 bg-zinc-50 p-5 transition duration-200 hover:border-sky-200">
+              <div className="mt-6 flex flex-wrap items-end justify-between gap-3 rounded-2xl border border-zinc-200 bg-zinc-50 p-4 transition duration-200 hover:border-sky-200 sm:p-5">
                 <div>
-                  <span className="text-3xl font-bold text-zinc-900">
+                  <span className="text-2xl font-bold text-zinc-900 sm:text-3xl">
                     ฿{listing.pricePerDay.toLocaleString()}
                   </span>
                   <span className="ml-1 text-zinc-500">/ วัน</span>
                 </div>
-                <span className="ml-auto text-sm text-zinc-500">
+                <span className="text-sm text-zinc-500">
                   มัดจำ ฿{listing.deposit.toLocaleString()}
                 </span>
               </div>
@@ -151,20 +151,22 @@ export default async function ProductDetailPage({
               ) : (
                 <>
                   {/* Specs */}
-                  <div className="mt-8">
-                    <h2 className="font-semibold text-zinc-900">สเปกสินค้า</h2>
-                    <dl className="mt-3 divide-y divide-zinc-100 rounded-xl border border-zinc-200">
-                      {product!.specs.map((spec) => (
-                        <div
-                          key={spec.label}
-                          className="flex justify-between px-4 py-2.5 text-sm transition duration-200 hover:bg-zinc-50"
-                        >
-                          <dt className="text-zinc-500">{spec.label}</dt>
-                          <dd className="font-medium text-zinc-800">{spec.value}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
+                  {product!.specs.length > 0 && (
+                    <div className="mt-8">
+                      <h2 className="font-semibold text-zinc-900">สเปกสินค้า</h2>
+                      <dl className="mt-3 divide-y divide-zinc-100 rounded-xl border border-zinc-200">
+                        {product!.specs.map((spec) => (
+                          <div
+                            key={spec.label}
+                            className="flex justify-between px-4 py-2.5 text-sm transition duration-200 hover:bg-zinc-50"
+                          >
+                            <dt className="text-zinc-500">{spec.label}</dt>
+                            <dd className="font-medium text-zinc-800">{spec.value}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                    </div>
+                  )}
 
                   {/* Includes */}
                   {product!.includes.length > 0 && (

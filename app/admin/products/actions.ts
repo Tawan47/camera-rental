@@ -27,20 +27,20 @@ function revalidateProductPaths(id?: string) {
 
 export async function createProduct(formData: FormData) {
   const data = productFormToJson(formData);
-  await apiFetch("/products", { method: "POST", body: JSON.stringify(data) });
+  await apiFetch("/products", { method: "POST", body: JSON.stringify(data), auth: true });
   revalidateProductPaths();
   redirect("/admin/products");
 }
 
 export async function updateProduct(id: string, formData: FormData) {
   const data = productFormToJson(formData);
-  await apiFetch(`/products/${id}`, { method: "PATCH", body: JSON.stringify(data) });
+  await apiFetch(`/products/${id}`, { method: "PATCH", body: JSON.stringify(data), auth: true });
   revalidateProductPaths(id);
   redirect("/admin/products");
 }
 
 export async function deleteProduct(id: string) {
-  await apiFetch(`/products/${id}`, { method: "DELETE" });
+  await apiFetch(`/products/${id}`, { method: "DELETE", auth: true });
   revalidateProductPaths(id);
 }
 
@@ -48,6 +48,7 @@ export async function toggleProductPublished(id: string, currentValue: boolean) 
   await apiFetch(`/products/${id}/toggle-published`, {
     method: "PATCH",
     body: JSON.stringify({ currentValue }),
+    auth: true,
   });
   revalidateProductPaths(id);
 }

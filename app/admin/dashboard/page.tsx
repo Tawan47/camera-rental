@@ -1,22 +1,26 @@
 import AdminShell from "@/app/admin/components/admin-shell";
 import { StaggerGrid, StaggerItem } from "@/app/components/motion/stagger-grid";
-import { recentBookings, stats } from "@/app/lib/mock-data";
+import { getProducts } from "@/app/lib/products";
+import { getCategories } from "@/app/lib/categories";
+import { getBrands } from "@/app/lib/brands";
+import { getInquiryStats, getRecentInquiries } from "@/app/lib/inquiries";
 
-const statCards = [
-  { label: "สินค้าทั้งหมด", value: stats.totalProducts, icon: "📷", color: "bg-sky-50 text-sky-600" },
-  { label: "หมวดหมู่", value: stats.totalCategories, icon: "🗂️", color: "bg-blue-50 text-blue-600" },
-  { label: "ยี่ห้อ", value: stats.totalBrands, icon: "🏷️", color: "bg-purple-50 text-purple-600" },
-  { label: "การจองเดือนนี้", value: stats.monthlyBookings, icon: "📅", color: "bg-green-50 text-green-600" },
-];
+export default async function AdminDashboardPage() {
+  const [products, categories, brands, stats, recentInquiries] = await Promise.all([
+    getProducts(),
+    getCategories(),
+    getBrands(),
+    getInquiryStats(),
+    getRecentInquiries(5),
+  ]);
 
-const statusStyles: Record<string, string> = {
-  รอยืนยัน: "bg-amber-50 text-amber-700",
-  ยืนยันแล้ว: "bg-blue-50 text-blue-700",
-  เสร็จสิ้น: "bg-green-50 text-green-700",
-  ยกเลิก: "bg-red-50 text-red-700",
-};
+  const statCards = [
+    { label: "สินค้าทั้งหมด", value: products.length, icon: "📷", color: "bg-sky-50 text-sky-600" },
+    { label: "หมวดหมู่", value: categories.length, icon: "🗂️", color: "bg-blue-50 text-blue-600" },
+    { label: "ยี่ห้อ", value: brands.length, icon: "🏷️", color: "bg-purple-50 text-purple-600" },
+    { label: "คำขอติดต่อ 7 วันล่าสุด", value: stats.last7Days, icon: "📩", color: "bg-green-50 text-green-600" },
+  ];
 
-export default function AdminDashboardPage() {
   return (
     <AdminShell active="/admin/dashboard">
       <div className="mb-6">
@@ -41,46 +45,63 @@ export default function AdminDashboardPage() {
         ))}
       </StaggerGrid>
 
+      {stats.topProducts.length > 0 && (
+        <div className="mt-8 rounded-2xl border border-zinc-200 bg-white p-5">
+          <h2 className="font-semibold text-zinc-900">สินค้าที่ถูกสอบถามมากที่สุด</h2>
+          <ul className="mt-3 divide-y divide-zinc-100">
+            {stats.topProducts.map((p) => (
+              <li key={p.productId} className="flex items-center justify-between py-2.5 text-sm">
+                <span className="text-zinc-700">{p.name}</span>
+                <span className="font-medium text-zinc-900">{p.count} ครั้ง</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       <div className="mt-8 rounded-2xl border border-zinc-200 bg-white">
         <div className="flex items-center justify-between border-b border-zinc-200 px-5 py-4">
-          <h2 className="font-semibold text-zinc-900">การจองล่าสุด</h2>
-          <span className="text-xs text-zinc-400">แสดง {recentBookings.length} รายการล่าสุด</span>
+          <h2 className="font-semibold text-zinc-900">คำขอติดต่อล่าสุด</h2>
+          <span className="text-xs text-zinc-400">แสดง {recentInquiries.length} รายการล่าสุด</span>
         </div>
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-sm">
-            <thead>
-              <tr className="border-b border-zinc-100 text-xs uppercase tracking-wide text-zinc-400">
-                <th className="px-5 py-3 font-medium">รหัส</th>
-                <th className="px-5 py-3 font-medium">ลูกค้า</th>
-                <th className="px-5 py-3 font-medium">สินค้า</th>
-                <th className="px-5 py-3 font-medium">ช่องทาง</th>
-                <th className="px-5 py-3 font-medium">วันที่</th>
-                <th className="px-5 py-3 font-medium">สถานะ</th>
-              </tr>
-            </thead>
-            <tbody>
-              {recentBookings.map((booking) => (
-                <tr
-                  key={booking.id}
-                  className="border-b border-zinc-50 transition duration-200 last:border-0 hover:bg-zinc-50"
-                >
-                  <td className="px-5 py-3 font-medium text-zinc-800">{booking.id}</td>
-                  <td className="px-5 py-3 text-zinc-600">{booking.customer}</td>
-                  <td className="px-5 py-3 text-zinc-600">{booking.product}</td>
-                  <td className="px-5 py-3 text-zinc-600">{booking.channel}</td>
-                  <td className="px-5 py-3 text-zinc-600">{booking.date}</td>
-                  <td className="px-5 py-3">
-                    <span
-                      className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${statusStyles[booking.status]}`}
-                    >
-                      {booking.status}
-                    </span>
-                  </td>
+        {recentInquiries.length === 0 ? (
+          <p className="px-5 py-10 text-center text-sm text-zinc-400">ยังไม่มีคำขอติดต่อเข้ามา</p>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-zinc-100 text-xs uppercase tracking-wide text-zinc-400">
+                  <th className="px-5 py-3 font-medium">ลูกค้า</th>
+                  <th className="px-5 py-3 font-medium">เบอร์โทร</th>
+                  <th className="px-5 py-3 font-medium">สินค้า/เซ็ต</th>
+                  <th className="px-5 py-3 font-medium">วันที่ต้องการเช่า</th>
+                  <th className="px-5 py-3 font-medium">ส่งเมื่อ</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {recentInquiries.map((inquiry) => (
+                  <tr
+                    key={inquiry.id}
+                    className="border-b border-zinc-50 transition duration-200 last:border-0 hover:bg-zinc-50"
+                  >
+                    <td className="px-5 py-3 font-medium text-zinc-800">{inquiry.name}</td>
+                    <td className="px-5 py-3 text-zinc-600">{inquiry.phone}</td>
+                    <td className="px-5 py-3 text-zinc-600">
+                      {inquiry.product?.name ?? inquiry.bundle?.name ?? "-"}
+                    </td>
+                    <td className="px-5 py-3 text-zinc-600">
+                      {new Date(inquiry.pickupDate).toLocaleDateString("th-TH")} –{" "}
+                      {new Date(inquiry.returnDate).toLocaleDateString("th-TH")}
+                    </td>
+                    <td className="px-5 py-3 text-zinc-600">
+                      {new Date(inquiry.createdAt).toLocaleDateString("th-TH")}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </AdminShell>
   );

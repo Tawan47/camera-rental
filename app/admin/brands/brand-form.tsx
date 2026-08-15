@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { createBrand, updateBrand } from "@/app/admin/brands/actions";
 import type { Brand } from "@/app/lib/types";
+import SubmitButton from "@/app/admin/components/submit-button";
 
 export default function BrandForm({ brand }: { brand?: Brand }) {
   const isEdit = Boolean(brand);
@@ -55,12 +56,7 @@ export default function BrandForm({ brand }: { brand?: Brand }) {
         >
           ยกเลิก
         </Link>
-        <button
-          type="submit"
-          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
-        >
-          {isEdit ? "บันทึกการแก้ไข" : "เพิ่มยี่ห้อ"}
-        </button>
+        <SubmitButton>{isEdit ? "บันทึกการแก้ไข" : "เพิ่มยี่ห้อ"}</SubmitButton>
       </div>
     </form>
   );

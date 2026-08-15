@@ -11,14 +11,16 @@ export default function ProductBrowser({
   bundles,
   categories,
   initialCategory,
+  initialQuery,
 }: {
   products: Product[];
   bundles: Bundle[];
   categories: Category[];
   initialCategory?: string;
+  initialQuery?: string;
 }) {
   const [mode, setMode] = useState<"products" | "bundles">("products");
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery ?? "");
   const [category, setCategory] = useState(initialCategory ?? "all");
   const [sort, setSort] = useState("popular");
 
@@ -157,7 +159,7 @@ export default function ProductBrowser({
               ไม่พบสินค้าที่ตรงกับเงื่อนไข ลองปรับตัวกรองใหม่
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
               <AnimatePresence mode="popLayout" initial={false}>
                 {filtered.map((product) => (
                   <motion.div
@@ -179,7 +181,7 @@ export default function ProductBrowser({
             ไม่พบเซ็ตเช่าที่ตรงกับเงื่อนไข ลองปรับการค้นหาใหม่
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-5 lg:grid-cols-3">
             <AnimatePresence mode="popLayout" initial={false}>
               {filteredBundles.map((bundle) => (
                 <motion.div

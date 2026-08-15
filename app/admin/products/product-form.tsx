@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createProduct, updateProduct } from "@/app/admin/products/actions";
 import type { Brand, Category, Product } from "@/app/lib/types";
 import ProductImageField from "@/app/admin/products/product-image-field";
+import SubmitButton from "@/app/admin/components/submit-button";
 
 export default function ProductForm({
   product,
@@ -140,12 +141,7 @@ export default function ProductForm({
         >
           ยกเลิก
         </Link>
-        <button
-          type="submit"
-          className="rounded-xl bg-sky-500 px-5 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
-        >
-          {isEdit ? "บันทึกการแก้ไข" : "เพิ่มสินค้า"}
-        </button>
+        <SubmitButton>{isEdit ? "บันทึกการแก้ไข" : "เพิ่มสินค้า"}</SubmitButton>
       </div>
     </form>
   );

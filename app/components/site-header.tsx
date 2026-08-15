@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { getSettings } from "@/app/lib/settings";
+import MobileNav from "@/app/components/mobile-nav";
 
 export default async function SiteHeader() {
   const settings = await getSettings();
@@ -71,10 +72,11 @@ export default async function SiteHeader() {
           </a>
           <Link
             href="/admin/login"
-            className="rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-600 transition duration-200 hover:scale-[1.03] hover:border-zinc-400 hover:text-zinc-900"
+            className="hidden rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-600 transition duration-200 hover:scale-[1.03] hover:border-zinc-400 hover:text-zinc-900 sm:inline-block"
           >
             Admin
           </Link>
+          <MobileNav instagramHandle={settings.instagramHandle} />
         </div>
       </div>
     </header>

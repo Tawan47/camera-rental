@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { logout } from "@/app/admin/logout-action";
+import AdminMobileNav from "@/app/admin/components/admin-mobile-nav";
 
 const navItems = [
   { href: "/admin/dashboard", label: "Dashboard", icon: "🏠" },
@@ -50,12 +52,14 @@ export default function AdminShell({
           >
             <span>↩️</span> กลับสู่หน้าเว็บไซต์
           </Link>
-          <Link
-            href="/admin/login"
-            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm font-medium text-zinc-500 transition duration-200 hover:bg-zinc-50 hover:text-zinc-900"
-          >
-            <span>🚪</span> ออกจากระบบ
-          </Link>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-left text-sm font-medium text-zinc-500 transition duration-200 hover:bg-zinc-50 hover:text-zinc-900"
+            >
+              <span>🚪</span> ออกจากระบบ
+            </button>
+          </form>
         </div>
       </aside>
 
@@ -66,9 +70,7 @@ export default function AdminShell({
             <img src="/products/logo-plu.jpg" alt="Plu For Rent" className="h-8 w-8 rounded-lg object-cover" />
             Plu For Rent Admin
           </div>
-          <Link href="/" className="text-sm text-zinc-500">
-            กลับหน้าเว็บไซต์
-          </Link>
+          <AdminMobileNav active={active} />
         </header>
         <main className="flex-1 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>

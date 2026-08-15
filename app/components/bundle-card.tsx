@@ -15,14 +15,14 @@ export default function BundleCard({
       href={`/products/${bundle.id}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white transition duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-zinc-200/60"
     >
-      <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-white text-6xl">
+      <div className="relative flex aspect-[4/5] items-center justify-center overflow-hidden bg-white text-4xl sm:text-6xl">
         {isImagePath(bundle.image) ? (
           <Image
             src={bundle.image}
             alt={bundle.name}
             fill
             priority={priority}
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 33vw"
             className="object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
@@ -30,27 +30,27 @@ export default function BundleCard({
             {bundle.image}
           </div>
         )}
-        <span className="absolute left-3 top-3 rounded-full bg-sky-500 px-3 py-1 text-xs font-semibold text-white">
+        <span className="absolute left-2 top-2 rounded-full bg-sky-500 px-2.5 py-1 text-[10px] font-semibold text-white sm:left-3 sm:top-3 sm:px-3 sm:text-xs">
           SET
         </span>
         {!bundle.available && (
-          <span className="absolute right-3 top-3 rounded-full bg-zinc-900/80 px-3 py-1 text-xs font-medium text-white">
+          <span className="absolute right-2 top-2 rounded-full bg-zinc-900/80 px-2.5 py-1 text-[10px] font-medium text-white sm:right-3 sm:top-3 sm:px-3 sm:text-xs">
             ไม่ว่าง
           </span>
         )}
       </div>
-      <div className="flex flex-1 flex-col gap-2 p-4">
-        <span className="text-xs font-medium uppercase tracking-wide text-sky-600">
+      <div className="flex flex-1 flex-col gap-1 p-3 sm:gap-2 sm:p-4">
+        <span className="text-[10px] font-medium uppercase tracking-wide text-sky-600 sm:text-xs">
           {bundle.brand ?? "เซ็ตครบชุด"}
         </span>
-        <h3 className="font-semibold text-zinc-900 transition-colors duration-200 group-hover:text-sky-600">
+        <h3 className="text-sm font-semibold text-zinc-900 transition-colors duration-200 group-hover:text-sky-600 sm:text-base">
           {bundle.name}
         </h3>
-        <div className="mt-auto flex items-baseline gap-1 pt-2">
-          <span className="text-lg font-bold text-zinc-900">
+        <div className="mt-auto flex items-baseline gap-1 pt-1 sm:pt-2">
+          <span className="text-base font-bold text-zinc-900 sm:text-lg">
             ฿{bundle.pricePerDay.toLocaleString()}
           </span>
-          <span className="text-sm text-zinc-500">/ วัน</span>
+          <span className="text-xs text-zinc-500 sm:text-sm">/ วัน</span>
         </div>
       </div>
     </Link>

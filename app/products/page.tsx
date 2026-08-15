@@ -8,7 +8,7 @@ import { getCategories } from "@/app/lib/categories";
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ category?: string }>;
+  searchParams: Promise<{ category?: string; q?: string }>;
 }) {
   const params = await searchParams;
   const [products, bundles, categories] = await Promise.all([
@@ -33,6 +33,7 @@ export default async function ProductsPage({
             bundles={bundles}
             categories={categories}
             initialCategory={params.category}
+            initialQuery={params.q}
           />
         </div>
       </main>

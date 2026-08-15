@@ -1,4 +1,5 @@
 import Link from "next/link";
+import LoginForm from "@/app/admin/login/login-form";
 
 export default function AdminLoginPage() {
   return (
@@ -11,48 +12,7 @@ export default function AdminLoginPage() {
           <p className="text-sm text-zinc-500">เข้าสู่ระบบเพื่อจัดการร้านค้า</p>
         </div>
 
-        <form className="space-y-4 rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
-          <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-700">
-              ชื่อผู้ใช้ / อีเมล
-            </label>
-            <input
-              type="text"
-              defaultValue="admin@pluforrent.mock"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            />
-          </div>
-          <div>
-            <label className="mb-1.5 block text-sm font-medium text-zinc-700">
-              รหัสผ่าน
-            </label>
-            <input
-              type="password"
-              defaultValue="password"
-              className="w-full rounded-lg border border-zinc-300 px-3 py-2.5 text-sm outline-none transition focus:border-sky-500 focus:ring-1 focus:ring-sky-500"
-            />
-          </div>
-
-          <div className="flex items-center justify-between text-sm">
-            <label className="flex items-center gap-2 text-zinc-600">
-              <input type="checkbox" defaultChecked className="rounded border-zinc-300" />
-              จดจำฉันไว้
-            </label>
-            <a href="#" className="font-medium text-sky-600 transition duration-200 hover:underline">
-              ลืมรหัสผ่าน?
-            </a>
-          </div>
-
-          <Link
-            href="/admin/dashboard"
-            className="block w-full rounded-xl bg-sky-500 px-6 py-2.5 text-center text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
-          >
-            เข้าสู่ระบบ
-          </Link>
-          <p className="text-center text-xs text-zinc-400">
-            * หน้าตัวอย่าง (mock) — กดเข้าสู่ระบบเพื่อดู Dashboard ได้เลย
-          </p>
-        </form>
+        <LoginForm />
 
         <div className="mt-6 text-center">
           <Link href="/" className="text-sm text-zinc-500 transition duration-200 hover:text-sky-600">

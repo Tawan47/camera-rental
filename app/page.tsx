@@ -7,6 +7,7 @@ import Reveal from "@/app/components/motion/reveal";
 import { StaggerGrid, StaggerItem } from "@/app/components/motion/stagger-grid";
 import HeroReveal from "@/app/components/motion/hero-reveal";
 import HeroSilhouette from "@/app/components/hero-silhouette";
+import HeroSearch from "@/app/components/hero-search";
 import { getPublishedBundles } from "@/app/lib/bundles";
 import { getPublishedProducts } from "@/app/lib/products";
 import { getSettings } from "@/app/lib/settings";
@@ -54,24 +55,7 @@ export default async function Home() {
                   <p className="mt-4 text-base text-zinc-600 sm:text-lg">{settings.heroSubheading}</p>
                 </div>
               }
-              search={
-                <form className="mx-auto mt-8 flex max-w-xl flex-col gap-3 rounded-2xl border border-zinc-200 bg-white p-3 shadow-sm transition-shadow duration-300 hover:shadow-md sm:flex-row">
-                  <div className="flex flex-1 items-center gap-2 px-2">
-                    <span className="text-zinc-400">🔍</span>
-                    <input
-                      type="text"
-                      className="w-full border-none py-2 text-sm text-zinc-900 outline-none"
-                      suppressHydrationWarning
-                    />
-                  </div>
-                  <Link
-                    href="/products"
-                    className="flex items-center justify-center rounded-xl bg-sky-500 px-6 py-2.5 text-sm font-semibold text-white transition duration-200 hover:scale-[1.02] hover:bg-sky-600 active:scale-[0.98]"
-                  >
-                    ค้นหา
-                  </Link>
-                </form>
-              }
+              search={<HeroSearch placeholder={settings.heroSearchPlaceholder} />}
             />
           </div>
         </section>
@@ -130,7 +114,7 @@ export default async function Home() {
 
         {/* How it works */}
         <section className="border-t border-zinc-200 bg-zinc-50">
-          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
             <Reveal>
               <h2 className="text-center text-xl font-bold text-zinc-900 sm:text-2xl">
                 ขั้นตอนการเช่า

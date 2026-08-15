@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AdminShell from "@/app/admin/components/admin-shell";
+import DeleteButton from "@/app/admin/components/delete-button";
 import { getBrands } from "@/app/lib/brands";
 import { deleteBrand } from "@/app/admin/brands/actions";
 
@@ -42,12 +43,7 @@ export default async function AdminBrandsPage() {
                 แก้ไข
               </Link>
               <form action={deleteBrand.bind(null, brand.id)}>
-                <button
-                  type="submit"
-                  className="font-medium text-red-500 transition duration-200 hover:underline"
-                >
-                  ลบ
-                </button>
+                <DeleteButton confirmMessage={`ต้องการลบยี่ห้อ "${brand.name}" ใช่หรือไม่?`} />
               </form>
             </div>
           </div>

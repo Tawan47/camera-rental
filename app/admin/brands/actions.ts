@@ -16,7 +16,7 @@ export async function createBrand(formData: FormData) {
     name: formData.get("name"),
     logo: formData.get("logo"),
   };
-  await apiFetch("/brands", { method: "POST", body: JSON.stringify(data) });
+  await apiFetch("/brands", { method: "POST", body: JSON.stringify(data), auth: true });
   revalidateBrandPaths();
   redirect("/admin/brands");
 }
@@ -26,12 +26,12 @@ export async function updateBrand(id: string, formData: FormData) {
     name: formData.get("name"),
     logo: formData.get("logo"),
   };
-  await apiFetch(`/brands/${id}`, { method: "PATCH", body: JSON.stringify(data) });
+  await apiFetch(`/brands/${id}`, { method: "PATCH", body: JSON.stringify(data), auth: true });
   revalidateBrandPaths();
   redirect("/admin/brands");
 }
 
 export async function deleteBrand(id: string) {
-  await apiFetch(`/brands/${id}`, { method: "DELETE" });
+  await apiFetch(`/brands/${id}`, { method: "DELETE", auth: true });
   revalidateBrandPaths();
 }

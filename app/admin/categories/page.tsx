@@ -1,5 +1,6 @@
 import Link from "next/link";
 import AdminShell from "@/app/admin/components/admin-shell";
+import DeleteButton from "@/app/admin/components/delete-button";
 import { getCategories } from "@/app/lib/categories";
 import { deleteCategory } from "@/app/admin/categories/actions";
 
@@ -42,12 +43,7 @@ export default async function AdminCategoriesPage() {
                 แก้ไข
               </Link>
               <form action={deleteCategory.bind(null, cat.id)}>
-                <button
-                  type="submit"
-                  className="font-medium text-red-500 transition duration-200 hover:underline"
-                >
-                  ลบ
-                </button>
+                <DeleteButton confirmMessage={`ต้องการลบหมวดหมู่ "${cat.name}" ใช่หรือไม่?`} />
               </form>
             </div>
           </div>
