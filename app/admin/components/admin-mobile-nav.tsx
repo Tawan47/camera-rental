@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { logout } from "@/app/admin/logout-action";
@@ -14,13 +14,15 @@ const navItems = [
   { href: "/admin/settings", label: "ตั้งค่าเว็บไซต์", icon: "⚙️" },
 ];
 
-export default function AdminMobileNav({ active }: { active: string }) {
-  const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+const subscribeNoop = () => () => {};
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+export default function AdminMobileNav({ active }: { active: string }) {
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false,
+  );
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
